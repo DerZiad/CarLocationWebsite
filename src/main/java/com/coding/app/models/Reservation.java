@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.Table;
 
 import com.coding.app.models.key.KeyReservation;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -46,6 +47,7 @@ public class Reservation implements Serializable{
 	
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
 	@MapsId("idVoiture")
+	@JsonIgnore
 	private Voiture voiture;
 			
 	public boolean isDead() {

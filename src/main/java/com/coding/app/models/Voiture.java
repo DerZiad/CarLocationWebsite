@@ -60,6 +60,7 @@ public class Voiture {
 	private byte[] picture;
 	
 	@OneToMany(cascade = {CascadeType.ALL},mappedBy = "voiture",targetEntity = Reservation.class)
+	@JsonIgnore
 	private List<Reservation> reservations = new ArrayList<Reservation>();
 
 	public void setPicturePart(MultipartFile file) throws IOException {
