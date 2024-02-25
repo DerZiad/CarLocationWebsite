@@ -13,7 +13,7 @@ Make sure you have the following prerequisites installed on your system before r
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/your-username/CarLocation.git
+git clone https://github.com/DerZiad/CarLocationWebsite.git
 ```
 
 ### 2. Navigate to the Project Directory
