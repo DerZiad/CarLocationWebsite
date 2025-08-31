@@ -28,7 +28,7 @@ import static com.coding.app.controllers.ManagerViewAttributes.*;
 class ClientViewAttributes {
 
     public final static String ADMIN_CLIENT_URI = "/admin/client";
-    public final static String JSP_ADMIN_CLIENT = "admin/client";
+    public final static String JSP_ADMIN_CLIENT = "admin-portal/client";
     public final static String MODEL_AND_VIEW_CLIENTS = "clients";
     public final static String REDIRECT_ADMIN_CLIENT = "redirect:" + ADMIN_CLIENT_URI;
 }
@@ -37,7 +37,7 @@ class ClientViewAttributes {
 class ManagerViewAttributes {
 
     public final static String ADMIN_MANAGER_URI = "/admin/manager";
-    public final static String JSP_ADMIN_MANAGER = "admin/manager";
+    public final static String JSP_ADMIN_MANAGER = "admin-portal/manager";
     public final static String MODEL_AND_VIEW_MANAGERS_ATTRIBUTE = "managers";
     public final static String MODEL_AND_VIEW_MANAGER_ATTRIBUTE = "manager";
     public final static String REDIRECT_MANAGER = "redirect:" + ADMIN_MANAGER_URI;
@@ -47,14 +47,14 @@ class ManagerViewAttributes {
 class AdminViewAttributes {
 
     public final static String ADMIN_URI = "/admin";
-    public final static String JSP_ADMIN_DASHBOARD = "admin/index";
+    public final static String JSP_ADMIN_DASHBOARD = "admin-portal/index";
 }
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class HistoryViewAttributes {
 
     public final static String ADMIN_HISTORY_URI = "/admin/history";
-    public final static String JSP_ADMIN_HISTORY = "ListHistorique";
+    public final static String JSP_ADMIN_HISTORY = "admin-portal/ListHistorique";
     public final static String MODEL_AND_VIEW_HISTORIES_ATTRIBUTE = "historiques";
 }
 

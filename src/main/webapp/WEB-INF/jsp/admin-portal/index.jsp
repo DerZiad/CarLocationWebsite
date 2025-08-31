@@ -1,12 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://kwonnam.pe.kr/jsp/template-inheritance"
-	prefix="layout"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
-<layout:extends name="layout-resp.jsp">
-	<layout:put block="content" type="REPLACE">
+<jsp:include page="admin_portal_header.jsp" />
 		<div class="app-page-title">
 			<div class="page-title-wrapper">
 				<div class="page-title-heading">
@@ -228,6 +224,4 @@
 				</div>
 			</div>
 		</div>
-
-	</layout:put>
-</layout:extends>
+		<jsp:include page="admin_portal_footer.jsp" />
