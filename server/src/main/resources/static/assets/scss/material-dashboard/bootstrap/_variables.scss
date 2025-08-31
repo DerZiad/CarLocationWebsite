@@ -578,7 +578,7 @@ $font-family-sans-serif:      system-ui, -apple-system, "Segoe UI", Roboto, "Hel
 $font-family-monospace:       SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !default;
 // stylelint-enable value-keyword-case
 $font-family-base:            var(--#{$variable-prefix}font-sans-serif) !default;
-$font-family-emailVerificationCode:            var(--#{$variable-prefix}font-monospace) !default;
+$font-family-verificationCode:            var(--#{$variable-prefix}font-monospace) !default;
 
 // $font-size-root affects the value of `rem`, which is used for as well font sizes, paddings, and margins
 // $font-size-base affects the font size of the body text
@@ -1629,12 +1629,12 @@ $offcanvas-backdrop-opacity:        $modal-backdrop-opacity !default;
 
 // Code
 
-$emailVerificationCode-font-size:                    $small-font-size !default;
-$emailVerificationCode-color:                        $pink !default;
+$verificationCode-font-size:                    $small-font-size !default;
+$verificationCode-color:                        $pink !default;
 
 $kbd-padding-y:                     .2rem !default;
 $kbd-padding-x:                     .4rem !default;
-$kbd-font-size:                     $emailVerificationCode-font-size !default;
+$kbd-font-size:                     $verificationCode-font-size !default;
 $kbd-color:                         $white !default;
 $kbd-bg:                            $gray-900 !default;
 

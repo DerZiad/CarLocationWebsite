@@ -1,4 +1,4 @@
-package com.coding.app.servlets;
+package com.coding.app.controllers;
 
 import com.coding.app.exceptions.NotFoundException;
 import com.coding.app.models.Reservation;
@@ -8,10 +8,7 @@ import com.coding.app.models.key.KeyReservation;
 import com.coding.app.repository.ReservationRepository;
 import com.coding.app.repository.UserRepository;
 import com.coding.app.repository.VoitureRepository;
-import com.coding.app.services.EmailConfirmation;
 import com.coding.app.services.EmailService;
-import com.coding.app.services.HtmlMessage;
-import jakarta.mail.MessagingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -50,20 +47,20 @@ public class ReservationManagerController {
 
 	@GetMapping("/accepter/{idVoiture}/{idUser}")
 	public ModelAndView accepterReservation(@PathVariable("idVoiture") Long idVoiture,
-			@PathVariable("idUser") Long idUser) throws NotFoundException {
+			@PathVariable("idUser") String username) throws NotFoundException {
 
 		Voiture voiture = voitureRepository.findById(idVoiture)
 				.orElseThrow(() -> new NotFoundException("Voiture not found"));
-		User user = userRepository.findById(idUser).orElseThrow(() -> new NotFoundException("User not found"));
+		User user = userRepository.findById(username).orElseThrow(() -> new NotFoundException("User not found"));
 
 		Reservation reservation = new Reservation();
 		reservation.setConfirmed(true);
 		reservation.setUser(user);
 		reservation.setVoiture(voiture);
-		reservation.setId(new KeyReservation(user.getId(), voiture.getId()));
+		reservation.setId(new KeyReservation(user.getUsername(), voiture.getId()));
 		reservationRepository.save(reservation);
 
-		Thread emailSend = new Thread(new Runnable() {
+		/*Thread emailSend = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
@@ -79,13 +76,13 @@ public class ReservationManagerController {
 
 			}
 		});
-		emailSend.start();
+		emailSend.start();*/
 		return new ModelAndView(REDIRECT_RESERVATION);
 	}
 
 	@GetMapping("/delete/{idVoiture}/{idUser}")
 	public ModelAndView deleteReservation(@PathVariable("idVoiture") Long idVoiture,
-			@PathVariable("idUser") Long idUser) throws NotFoundException {
+			@PathVariable("idUser") String idUser) throws NotFoundException {
 
 		Voiture voiture = voitureRepository.findById(idVoiture)
 				.orElseThrow(() -> new NotFoundException("Voiture not found"));
@@ -95,9 +92,9 @@ public class ReservationManagerController {
 		reservation.setConfirmed(true);
 		reservation.setUser(user);
 		reservation.setVoiture(voiture);
-		reservation.setId(new KeyReservation(user.getId(), voiture.getId()));
+		reservation.setId(new KeyReservation(user.getUsername(), voiture.getId()));
 		reservationRepository.delete(reservation);
-		Thread emailSend = new Thread(new Runnable() {
+		/*Thread emailSend = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
@@ -113,7 +110,7 @@ public class ReservationManagerController {
 
 			}
 		});
-		emailSend.start();
+		emailSend.start();*/
 		return new ModelAndView(REDIRECT_RESERVATION);
 	}
 }

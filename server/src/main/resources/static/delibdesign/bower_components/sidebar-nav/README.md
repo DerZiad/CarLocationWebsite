@@ -47,7 +47,7 @@ bower install metisMenu
     <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.0/js/bootstrap.min.js"></script>
     ```
 
-5. Include metisMenu plugin's emailVerificationCode
+5. Include metisMenu plugin's verificationCode
 
     ```html
     <script src="//cdn.jsdelivr.net/bootstrap.metismenu/1.1.2/js/metismenu.min.js"></script>

@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://kwonnam.pe.kr/jsp/template-inheritance"
-	prefix="layout"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -338,7 +337,7 @@
 									src="/client/assets/img/portfolio/1.jpg" alt="..." />
 								
 								<ul class="list-inline">
-									<li><strong>Année:</strong> <span id="annee"></span></li>
+									<li><strong>Annï¿½e:</strong> <span id="annee"></span></li>
 								</ul>
 								<input type="number" class="form-control" id="delai"
 									name="delai" placeholder="Delai" min="1" max="30" value="" />

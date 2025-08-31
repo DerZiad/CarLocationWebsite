@@ -13,10 +13,9 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Embeddable
 public class KeyReservation implements Serializable{
-	private static final long serialVersionUID = 1L;
 
 	@Column(name = "idUser")
-	private Long idUser;
+	private String idUser;
 
 	@Column(name = "idVoiture")
 	private Long idVoiture;

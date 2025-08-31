@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://kwonnam.pe.kr/jsp/template-inheritance"
-	prefix="layout"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +25,6 @@
 <link id="pagestyle" href="/assets/css/material-dashboard.css?v=3.0.0"
 	rel="stylesheet" />
 </head>
-<layout:block name="cssfiles"></layout:block>
 <body class="">
 	<div class="container position-sticky z-index-sticky top-0">
 		<div class="row">
@@ -72,22 +70,3 @@
 			</div>
 		</div>
 	</div>
-	<layout:block name="content"></layout:block>
-</body>
-<script src="/assets/js/core/popper.min.js"></script>
-<script src="/assets/js/core/bootstrap.min.js"></script>
-<script src="/assets/js/plugins/perfect-scrollbar.min.js"></script>
-<script src="/assets/js/plugins/smooth-scrollbar.min.js"></script>
-<script>
-    var win = navigator.platform.indexOf('Win') > -1;
-    if (win && document.querySelector('#sidenav-scrollbar')) {
-      var options = {
-        damping: '0.5'
-      }
-      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
-    }
-  </script>
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<script src="/assets/js/material-dashboard.min.js?v=3.0.0"></script>
-<layout:block name="scriptsjs"></layout:block>
-</html>

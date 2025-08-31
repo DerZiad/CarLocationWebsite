@@ -1098,12 +1098,12 @@ $close-text-shadow:                 0 1px 0 $white !default;
 
 // Code
 
-$emailVerificationCode-font-size:                    87.5% !default;
-$emailVerificationCode-color:                        $pink !default;
+$verificationCode-font-size:                    87.5% !default;
+$verificationCode-color:                        $pink !default;
 
 $kbd-padding-y:                     .2rem !default;
 $kbd-padding-x:                     .4rem !default;
-$kbd-font-size:                     $emailVerificationCode-font-size !default;
+$kbd-font-size:                     $verificationCode-font-size !default;
 $kbd-color:                         $white !default;
 $kbd-bg:                            $gray-900 !default;
 

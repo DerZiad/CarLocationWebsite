@@ -21,7 +21,7 @@
   // Target th & td
   // We need the child combinator to prevent styles leaking to nested tables which doesn't have a `.table` class.
   // We use the universal selectors here to simplify the selector (else we would need 6 different selectors).
-  // Another advantage is that this generates less emailVerificationCode and makes the selector less specific making it easier to override.
+  // Another advantage is that this generates less verificationCode and makes the selector less specific making it easier to override.
   // stylelint-disable-next-line selector-max-universal
   > :not(caption) > * > * {
     padding: $table-cell-padding-y $table-cell-padding-x;

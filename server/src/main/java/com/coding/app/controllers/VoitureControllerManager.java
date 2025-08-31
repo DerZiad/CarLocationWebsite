@@ -1,4 +1,4 @@
-package com.coding.app.servlets;
+package com.coding.app.controllers;
 
 import com.coding.app.exceptions.NotFoundException;
 import com.coding.app.models.Voiture;

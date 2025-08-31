@@ -274,10 +274,10 @@ a:not([href]):not([class]) {
 // Code
 
 pre,
-emailVerificationCode,
+verificationCode,
 kbd,
 samp {
-  font-family: $font-family-emailVerificationCode;
+  font-family: $font-family-verificationCode;
   @include font-size(1em); // Correct the odd `em` font sizing in all browsers.
   direction: ltr #{"/* rtl:ignore */"};
   unicode-bidi: bidi-override;
@@ -292,20 +292,20 @@ pre {
   margin-top: 0; // 1
   margin-bottom: 1rem; // 2
   overflow: auto; // 3
-  @include font-size($emailVerificationCode-font-size);
+  @include font-size($verificationCode-font-size);
   color: $pre-color;
 
-  // Account for some emailVerificationCode outputs that place emailVerificationCode tags in pre tags
-  emailVerificationCode {
+  // Account for some verificationCode outputs that place verificationCode tags in pre tags
+  verificationCode {
     @include font-size(inherit);
     color: inherit;
     word-break: normal;
   }
 }
 
-emailVerificationCode {
-  @include font-size($emailVerificationCode-font-size);
-  color: $emailVerificationCode-color;
+verificationCode {
+  @include font-size($verificationCode-font-size);
+  color: $verificationCode-color;
   word-wrap: break-word;
 
   // Streamline the style when inside anchors to avoid broken underline and more

@@ -6,7 +6,7 @@ https://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javasc
  * @author Lea Verou
  */
 
-emailVerificationCode[class*="language-"],
+verificationCode[class*="language-"],
 pre[class*="language-"] {
 	color: black;
 	background: none;
@@ -31,19 +31,19 @@ pre[class*="language-"] {
 }
 
 pre[class*="language-"]::-moz-selection, pre[class*="language-"] ::-moz-selection,
-emailVerificationCode[class*="language-"]::-moz-selection, emailVerificationCode[class*="language-"] ::-moz-selection {
+verificationCode[class*="language-"]::-moz-selection, verificationCode[class*="language-"] ::-moz-selection {
 	text-shadow: none;
 	background: #b3d4fc;
 }
 
 pre[class*="language-"]::selection, pre[class*="language-"] ::selection,
-emailVerificationCode[class*="language-"]::selection, emailVerificationCode[class*="language-"] ::selection {
+verificationCode[class*="language-"]::selection, verificationCode[class*="language-"] ::selection {
 	text-shadow: none;
 	background: #b3d4fc;
 }
 
 @media print {
-	emailVerificationCode[class*="language-"],
+	verificationCode[class*="language-"],
 	pre[class*="language-"] {
 		text-shadow: none;
 	}
@@ -56,13 +56,13 @@ pre[class*="language-"] {
   border-radius: .75rem;
 }
 
-:not(pre) > emailVerificationCode[class*="language-"],
+:not(pre) > verificationCode[class*="language-"],
 pre[class*="language-"] {
 	background: $gray-100;
 }
 
-/* Inline emailVerificationCode */
-:not(pre) > emailVerificationCode[class*="language-"] {
+/* Inline verificationCode */
+:not(pre) > verificationCode[class*="language-"] {
 	padding: .1em;
 	border-radius: .3em;
 	white-space: normal;

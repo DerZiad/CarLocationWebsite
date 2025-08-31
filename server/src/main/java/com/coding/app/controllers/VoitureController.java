@@ -1,11 +1,11 @@
-package com.coding.app.servlets;
+package com.coding.app.controllers;
 
 import com.coding.app.exceptions.NotFoundException;
 import com.coding.app.models.History;
 import com.coding.app.models.Voiture;
 import com.coding.app.models.enums.Categorie;
 import com.coding.app.models.enums.MarqueVoiture;
-import com.coding.app.repository.HistoriqueRepository;
+import com.coding.app.repository.HistoryRepository;
 import com.coding.app.repository.VoitureRepository;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
@@ -31,7 +31,7 @@ public class VoitureController {
 	private VoitureRepository voitureRepository;
 	
 	@Autowired
-	private HistoriqueRepository historiqueRepository;
+	private HistoryRepository historyRepository;
 
 	private final static String PAGE_VOITURE = "admin/voiture";
 	private final static String REDIRECT_VOITURE = "redirect:/admin/voiture";
@@ -66,7 +66,7 @@ public class VoitureController {
 		}
 
 		if (errors.size() == 0) {
-			historiqueRepository.save(new History("New voiture added " + voiture.getMarque()));
+			historyRepository.save(new History("New voiture added " + voiture.getMarque()));
 			voitureRepository.save(voiture);
 			model = new ModelAndView(REDIRECT_VOITURE);
 		} else {
@@ -96,7 +96,7 @@ public class VoitureController {
 	@PostMapping("/{idVoiture}")
 	public ModelAndView saveVoitureByID(@RequestPayload Voiture voiture) {
 		ModelAndView model = new ModelAndView(PAGE_VOITURE);
-		historiqueRepository.save(new History("New voiture edited " + voiture.getMarque()));
+		historyRepository.save(new History("New voiture edited " + voiture.getMarque()));
 		HashMap<String, String> errors = new HashMap<String, String>();
 		ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
 		Validator validator = factory.getValidator();
@@ -120,7 +120,7 @@ public class VoitureController {
 	
 	@GetMapping("/delete/{idVoiture}")
 	public ModelAndView deleteVoiture(@PathVariable("idVoiture")Long idVoiture) throws NotFoundException{
-		historiqueRepository.save(new History("New voiture deleted " + idVoiture));
+		historyRepository.save(new History("New voiture deleted " + idVoiture));
 		voitureRepository.deleteById(idVoiture);
 		ModelAndView model = new ModelAndView(REDIRECT_VOITURE);
 		return model;

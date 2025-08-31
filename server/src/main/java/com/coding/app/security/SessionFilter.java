@@ -2,7 +2,6 @@ package com.coding.app.security;
 
 import com.coding.app.models.User;
 import com.coding.app.models.enums.ServerRole;
-import jakarta.servlet.FilterConfig;
 import jakarta.servlet.*;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -82,7 +81,7 @@ public class SessionFilter implements Filter {
 					} else {
 						if (!(authentication instanceof AnonymousAuthenticationToken)) {
 							User user = (User) authentication.getPrincipal();
-							if (!user.isVerificated()) {
+							if (!user.isValidated()) {
 								resp.sendRedirect("/verification");
 							} else {
 								chain.doFilter(request, response);

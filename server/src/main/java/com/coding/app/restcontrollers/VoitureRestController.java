@@ -17,8 +17,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping(name = "/api/voitures", produces = MediaType.APPLICATION_JSON_VALUE, value = "/api/voitures")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -40,7 +38,7 @@ public class VoitureRestController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			System.out.println("Traitement");
-			Voiture voiture = voitureRepository.findById(voitureRequest.idVoiture())
+			Voiture voiture = voitureRepository.findById(voitureRequest.carId())
 					.orElseThrow(() -> new NotFoundException("Voiture not found"));
 			User user = (User) auth.getPrincipal();
 			Reservation reservation = new Reservation();
@@ -48,7 +46,7 @@ public class VoitureRestController {
 			reservation.setDelai(voitureRequest.delay());
 			reservation.setUser(user);
 			reservation.setVoiture(voiture);
-			reservation.setId(new KeyReservation(user.getId(), voiture.getId()));
+			reservation.setId(new KeyReservation(user.getUsername(), voiture.getId()));
 			reservationRepository.save(reservation);
 		}
 		return ResponseEntity.accepted().build();
