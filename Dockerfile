@@ -4,6 +4,12 @@ WORKDIR /app
 
 COPY . /app
 
-RUN mvn clean package -DskipTests
+# Install netcat for wait-for-mysql.sh
+RUN apt-get update && apt-get install -y netcat
 
-CMD ["java", "-jar", "target/server.jar"]
+COPY wait-for-mysql.sh /wait-for-mysql.sh
+RUN chmod +x /wait-for-mysql.sh
+
+RUN mvn clean compile package -DskipTests
+
+CMD ["/wait-for-mysql.sh", "mysql", "3306", "java", "-jar", "target/car_location-0.0.1-SNAPSHOT.war"]
