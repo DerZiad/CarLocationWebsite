@@ -1,20 +1,25 @@
 package com.coding.app.controllers;
 
 import com.coding.app.exceptions.InvalidObjectException;
+import com.coding.app.exceptions.NotFoundException;
 import com.coding.app.models.User;
 import com.coding.app.repository.UserRepository;
 import com.coding.app.repository.VerificationCodeRepository;
 import com.coding.app.services.AuthenticationService;
 import com.coding.app.services.EmailService;
+import com.coding.app.services.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
+
+import static com.coding.app.controllers.DashboardViewAttributes.CURRENT_USER;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,7 +30,7 @@ public class AuthenticationController {
     private static final String PATH_SIGNUP = "signup";
     private static final String PATH_VERIFICATION = "auth/verification";
     private static final String REDIRECT_HOME = "redirect:/";
-    private static final String ATTR_ERROR = "error";
+    private static final String ATTR_ERROR = "errorMessage";
     private static final String ATTR_ERRORS = "errors";
 
     private final AuthenticationService authenticationService;
@@ -42,7 +47,8 @@ public class AuthenticationController {
 
     @GetMapping("/signup")
     public ModelAndView signup() {
-        return new ModelAndView(PATH_SIGNUP);
+        final ModelAndView model = new ModelAndView(PATH_SIGNUP);
+        return model;
     }
 
     @PostMapping("/signup")

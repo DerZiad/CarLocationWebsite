@@ -1,23 +1,19 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <title>Sign Up</title>
-    <link href="/client/css/styles.css" rel="stylesheet" />
-    <link href="/additional.css" rel="stylesheet" />
+    <link href="/home/css/styles.css" rel="stylesheet" />
+    <link href="/home/css/additional.css" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-        <div class="container">
-            <a class="navbar-brand" href="/"><img src="/client/assets/img/navbar-logo.svg" alt="..." /></a>
-        </div>
-    </nav>
-
+    <%@ include file="navbar.jsp" %>
     <!-- Signup Form -->
     <section class="page-section" style="margin-top:100px">
         <div class="container">
@@ -28,8 +24,8 @@
                         <h3 class="section-subheading text-muted">Create your account</h3>
                     </div>
                     <!-- General Error Box -->
-                    <c:if test="${not empty errorMessage and errorMessage ne ''}">
-                        <div class="alert alert-danger alert-dismissible fade" role="alert">
+                    <c:if test="${not empty errorMessage}">
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
                              <c:out value="${errorMessage}" />
                         </div>
                     </c:if>

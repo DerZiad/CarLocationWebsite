@@ -23,42 +23,14 @@
 	href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700"
 	rel="stylesheet" type="text/css" />
 <!-- Core theme CSS (includes Bootstrap)-->
-<link href="/client/css/styles.css" rel="stylesheet" />
+<link href="/home/css/styles.css" rel="stylesheet" />
 </head>
 <body id="page-top">
-	<c:if test="${username ne null }">
-		<input id="username" type="hidden" name="username" value="${username}" />
-	</c:if>
-	<!-- Navigation-->
-	<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
-		<div class="container">
-			<a class="navbar-brand" href="#page-top"><img
-				src="/client/assets/img/navbar-logo.svg" alt="..." /></a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarResponsive"
-				aria-controls="navbarResponsive" aria-expanded="false"
-				aria-label="Toggle navigation">
-				Menu <i class="fas fa-bars ms-1"></i>
-			</button>
-			<div class="collapse navbar-collapse" id="navbarResponsive">
-				<ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
-					<li class="nav-item"><a class="nav-link" href="#portfolio">Voitures</a></li>
-					<li class="nav-item"><a class="nav-link" href="#about">About</a></li>
-					<li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
-					<c:if test="${username eq null}">
-						<li class="nav-item"><a class="nav-link" href="/login">Login</a></li>
-						<li class="nav-item"><a class="nav-link" href="/signup">Sign
-								up</a></li>
-					</c:if>
-					<c:if test="${username ne null}">
-						<li class="nav-item" style="color: white">${username}</li>
-						<li class="nav-item"><a class="nav-link" href="/logout">Logout</a></li>
-					</c:if>
-				</ul>
-			</div>
-		</div>
-	</nav>
-	<!-- Masthead-->
+    <c:if test="${username ne null }">
+        <input id="username" type="hidden" name="username" value="${username}" />
+    </c:if>
+    <%@ include file="navbar.jsp" %>
+    <!-- Masthead-->
 	<header class="masthead">
 		<div class="container">
 			<div class="masthead-subheading">Welcome To Our Studio!</div>
@@ -113,7 +85,7 @@
 				<li>
 					<div class="timeline-image">
 						<img class="rounded-circle img-fluid"
-							src="/client/assets/img/about/1.jpg" alt="..." />
+							src="/home/assets/img/about/1.jpg" alt="..." />
 					</div>
 					<div class="timeline-panel">
 						<div class="timeline-heading">
@@ -131,7 +103,7 @@
 				<li class="timeline-inverted">
 					<div class="timeline-image">
 						<img class="rounded-circle img-fluid"
-							src="/client/assets/img/about/2.jpg" alt="..." />
+							src="/home/assets/img/about/2.jpg" alt="..." />
 					</div>
 					<div class="timeline-panel">
 						<div class="timeline-heading">
@@ -149,7 +121,7 @@
 				<li>
 					<div class="timeline-image">
 						<img class="rounded-circle img-fluid"
-							src="/client/assets/img/about/3.jpg" alt="..." />
+							src="/home/assets/img/about/3.jpg" alt="..." />
 					</div>
 					<div class="timeline-panel">
 						<div class="timeline-heading">
@@ -167,7 +139,7 @@
 				<li class="timeline-inverted">
 					<div class="timeline-image">
 						<img class="rounded-circle img-fluid"
-							src="/client/assets/img/about/4.jpg" alt="..." />
+							src="/home/assets/img/about/4.jpg" alt="..." />
 					</div>
 					<div class="timeline-panel">
 						<div class="timeline-heading">
@@ -198,19 +170,19 @@
 			<div class="row align-items-center">
 				<div class="col-md-3 col-sm-6 my-3">
 					<a href="#!"><img class="img-fluid img-brand d-block mx-auto"
-						src="/client/assets/img/logos/microsoft.svg" alt="..." /></a>
+						src="/home/assets/img/logos/microsoft.svg" alt="..." /></a>
 				</div>
 				<div class="col-md-3 col-sm-6 my-3">
 					<a href="#!"><img class="img-fluid img-brand d-block mx-auto"
-						src="/client/assets/img/logos/google.svg" alt="..." /></a>
+						src="/home/assets/img/logos/google.svg" alt="..." /></a>
 				</div>
 				<div class="col-md-3 col-sm-6 my-3">
 					<a href="#!"><img class="img-fluid img-brand d-block mx-auto"
-						src="/client/assets/img/logos/facebook.svg" alt="..." /></a>
+						src="/home/assets/img/logos/facebook.svg" alt="..." /></a>
 				</div>
 				<div class="col-md-3 col-sm-6 my-3">
 					<a href="#!"><img class="img-fluid img-brand d-block mx-auto"
-						src="/client/assets/img/logos/ibm.svg" alt="..." /></a>
+						src="/home/assets/img/logos/ibm.svg" alt="..." /></a>
 				</div>
 			</div>
 		</div>
@@ -324,7 +296,7 @@
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="close-modal" data-bs-dismiss="modal">
-					<img src="/client/assets/img/close-icon.svg" alt="Close modal" />
+					<img src="/home/assets/img/close-icon.svg" alt="Close modal" />
 				</div>
 				<div class="container">
 					<div class="row justify-content-center">
@@ -334,7 +306,7 @@
 								<h2 id="marqueModal" class="text-uppercase"></h2>
 								<p id="categorieModal" class="item-intro text-muted"></p>
 								<img id="imageModal" class="img-fluid d-block mx-auto"
-									src="/client/assets/img/portfolio/1.jpg" alt="..." />
+									src="/home/assets/img/portfolio/1.jpg" alt="..." />
 								
 								<ul class="list-inline">
 									<li><strong>Ann�e:</strong> <span id="annee"></span></li>
@@ -361,11 +333,11 @@
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 	<!-- Core theme JS-->
-	<script src="/client/js/scripts.js"></script>
+	<script src="/home/js/scripts.js"></script>
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 	<script src="/assets/js/jquery.js"></script>
-	<script src="/client/js/reactiveTemp.js"></script>
+	<script src="/home/js/reactiveTemp.js"></script>
 	<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *-->
 	<!-- * *                               SB Forms JS                               * *-->
 	<!-- * * Activate your form at https://startbootstrap.com/solution/contact-forms * *-->

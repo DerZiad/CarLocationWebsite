@@ -121,7 +121,7 @@ public class SecurityConfiguration {
 			final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 			for (ServerRole role : ServerRole.values()) {
 				if (authorities.contains(new SimpleGrantedAuthority("ROLE_" + role.getRole()))) {
-					return role.getPrivateSpace();
+					return role.getTargetUrl();
 				}
 			}
 			return null;
