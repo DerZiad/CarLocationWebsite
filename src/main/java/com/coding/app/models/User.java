@@ -49,12 +49,9 @@ public class User implements UserDetails, Serializable, Comparable<User> {
 	
 	private String roles = "";
 	
-	@OneToOne(cascade = {CascadeType.ALL},mappedBy = "user",targetEntity = VerificationCode.class)
-	private VerificationCode emailVerificationCode;
-	
-	@OneToOne(cascade = {CascadeType.ALL},mappedBy = "user",targetEntity = VerificationCode.class)
-	private VerificationCode verificationCodeRecover;
-	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<VerificationCode> verificationCodes = new ArrayList<>();
+
 	private boolean accountNonExpired = true;
 	private boolean accountNonLocked = true;
 	private boolean credentialsNonExpired = true;

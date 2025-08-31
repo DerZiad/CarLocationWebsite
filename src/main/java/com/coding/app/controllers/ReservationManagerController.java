@@ -36,17 +36,8 @@ public class ReservationManagerController {
 	private final static String ATTRIBUT_RESERVATIONS = "reservations";
 	private final static String REDIRECT_RESERVATION = "redirect:/manager/reservation";
 
-	@GetMapping
-	public ModelAndView getVoiture() {
-		ModelAndView model = new ModelAndView(PAGE_RESERVATION);
-		List<Reservation> reservations = reservationRepository.findAll();
-		reservations = reservations.stream().filter((r) -> !r.isConfirmed()).toList();
-		model.addObject(ATTRIBUT_RESERVATIONS, reservations);
-		return model;
-	}
-
 	@GetMapping("/accepter/{idVoiture}/{idUser}")
-	public ModelAndView accepterReservation(@PathVariable("idVoiture") Long idVoiture,
+	public ModelAndView acceptReservation(@PathVariable("idVoiture") Long idVoiture,
 			@PathVariable("idUser") String username) throws NotFoundException {
 
 		Car car = carRepository.findById(idVoiture)

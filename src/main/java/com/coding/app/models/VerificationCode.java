@@ -24,7 +24,8 @@ public class VerificationCode {
 	@Enumerated(EnumType.STRING)
 	private EmailType type;
 	
-	@OneToOne(cascade = {CascadeType.DETACH,CascadeType.REFRESH})
+	@ManyToOne
+	@JoinColumn(name = "user_username")
 	private User user;
 	
 	private String ip;

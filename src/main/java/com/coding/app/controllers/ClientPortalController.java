@@ -18,7 +18,7 @@ import java.util.List;
 @RequestMapping("/")
 public class ClientPortalController {
 	
-	private final static String PATH_CLIENT = "client/index";
+	private final static String PATH_CLIENT = "index";
 	
 	private final static String ATTRIBUT_VOITURES = "voitures";
 	

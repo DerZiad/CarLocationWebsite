@@ -11,6 +11,8 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+
 @Service
 @RequiredArgsConstructor
 public class EmailService {
@@ -30,28 +32,27 @@ public class EmailService {
 		
 		helper.setFrom(fromEmail);
 		helper.setTo(email.to);
-		helper.setSubject(email.topic);
+		helper.setSubject(email.subject);
 		helper.setText(email.generateMessage(), true);
 		
 		mailer.send(message);
 	}
 
-	public record Email(String to, String body, String topic, String name, EmailType type) {
+	public record Email(String to, String subject, EmailType type, HashMap<String, String> bodyFields) {
 
 		private static final String HTML_TEMPLATE_CONFIRMATION = "classpath:templates/confirmation_letter.html";
 		private static final String HTML_TEMPLATE_RESET = "classpath:templates/recover_letter.html";
 
 		public String generateMessage() {
 			final ResourceLoader resourceLoader = new DefaultResourceLoader();
-			String templatePath = type == EmailType.CONFIRMATION ? HTML_TEMPLATE_CONFIRMATION : HTML_TEMPLATE_RESET;
+			final String templatePath = type == EmailType.CONFIRMATION ? HTML_TEMPLATE_CONFIRMATION : HTML_TEMPLATE_RESET;
 			try {
 				var resource = resourceLoader.getResource(templatePath);
 				try (var in = resource.getInputStream()) {
 					String html = new String(in.readAllBytes());
-					html = html.replace("${nom}", name);
-					html = html.replace("${confirmationLink}", body); // For confirmation, body is the link
-					html = html.replace("${resetLink}", body); // For reset, body is the link
-					html = html.replace("${titre}", topic);
+					for(var entry : bodyFields.entrySet()) {
+						html = html.replace("${" + entry.getKey() + "}", entry.getValue());
+					}
 					return html;
 				}
 			} catch (Exception e) {
