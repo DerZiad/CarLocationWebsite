@@ -14,6 +14,12 @@ services:
     volumes:
       - mysql_data:/var/lib/mysql
 
-
+  car-location:
+    build: ./
+    container_name: car-location-container
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
 volumes:
   mysql_data:
