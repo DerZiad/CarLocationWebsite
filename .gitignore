@@ -5,6 +5,15 @@ out/
 *.ipr
 *.iws
 
+### STS ###
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
 # Maven
 target/
 pom.xml.tag
@@ -28,3 +37,16 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+### NetBeans ###
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+### VS Code ###
+.vscode/
