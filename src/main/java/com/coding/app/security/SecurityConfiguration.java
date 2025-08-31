@@ -48,12 +48,12 @@ public class SecurityConfiguration {
 				.authenticationProvider(authenticationProvider())
 				.authorizeHttpRequests(auth -> auth
 						.requestMatchers("/*").permitAll()
-						.requestMatchers("/signup").permitAll()
-						.requestMatchers(ServerRole.MANAGER.getSpace() + "/*").hasRole(ServerRole.ADMIN.getRole())
-						.requestMatchers(ServerRole.ADMIN.getSpace() + "/*").hasRole(ServerRole.ADMIN.getRole())
-						.requestMatchers("/").hasRole(ServerRole.CLIENT.getRole())
+						.requestMatchers("/signup").not().authenticated()
 						.requestMatchers("/verification").authenticated()
 						.requestMatchers("/logout").authenticated()
+						.requestMatchers(ServerRole.MANAGER.getSpace() + "/*").hasRole(ServerRole.ADMIN.getRole())
+						.requestMatchers(ServerRole.ADMIN.getSpace() + "/**").hasRole(ServerRole.ADMIN.getRole())
+						.requestMatchers("/").hasRole(ServerRole.CLIENT.getRole())
 						.anyRequest().permitAll()
 				)
 				.formLogin(form -> form

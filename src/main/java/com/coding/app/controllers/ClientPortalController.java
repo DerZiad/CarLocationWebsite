@@ -16,7 +16,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/")
-public class ObjetServlet {
+public class ClientPortalController {
 	
 	private final static String PATH_CLIENT = "client/index";
 	

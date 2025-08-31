@@ -1,4 +1,4 @@
-package com.coding.app.restcontrollers;
+package com.coding.app.controllers;
 
 import com.coding.app.dto.CarRequest;
 import com.coding.app.exceptions.NotFoundException;
