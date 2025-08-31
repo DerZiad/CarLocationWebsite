@@ -10,12 +10,12 @@
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-    <title>Car Location</title>
+    <title>Car Rental</title>
     <link rel="shortcut icon" type="image/icon" href="assets/logo/favicon.png"/>
     <meta name="viewport"
     	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
     <meta name="description"
-    	content="This is an example dashboard created using build-in elements and components.">
+    	content="This is an example dashboard created using built-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
     <link href="/delibdesign/css/main.css" rel="stylesheet">
     <link rel="stylesheet"
@@ -29,19 +29,16 @@
     	});
     	google.charts.setOnLoadCallback(drawChart);
 
-
-
-
     	function drawChart() {
     		var data = google.visualization.arrayToDataTable([
-    				[ 'Pays', 'Réservations faites'],
-    				[ 'Réservé avec confirmation', ${reservationsdonenumber}],
-    				[ 'Réservé sans confirmation', ${reservationsnotdonenumber}]]);
+    				[ 'Country', 'Reservations made'],
+    				[ 'Reserved with confirmation', ${reservationsdonenumber}],
+    				[ 'Reserved without confirmation', ${reservationsnotdonenumber}]]);
 
     		var options = {
     			chart : {
-    				title : 'Statistique des etudiants',
-    				subtitle : 'Validé, ratrappage et non validé pour cette periode',
+    				title : 'Student Statistics',
+    				subtitle : 'Validated, retake and not validated for this period',
     			}
     		};
 
@@ -164,35 +161,27 @@
                 	<div class="scrollbar-sidebar">
                 		<div class="app-sidebar__inner">
                 			<ul class="vertical-nav-menu">
-                				<li class="app-sidebar__heading">Accueil</li>
-                				<li><a href="/admin" class="${dashboard}"> <i
-                						class="metismenu-icon pe-7s-rocket"></i> Tableau de bords
+                				<li class="app-sidebar__heading">Home</li>
+                				<li><a href="/shared" class="${dashboard}"> <i
+                						class="metismenu-icon pe-7s-rocket"></i> Dashboard
                 				</a></li>
-                				<li><a href="#" aria-expanded="false"> <i
-                						class="metismenu-icon pe-7s-id"></i> Voitures <i
-                						class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
-                				</a>
-                					<ul class="mm-collapse" style="height: 7.04px;">
-                						<li><a href="/admin/voiture"
-                					class="${lieuAjout}"> <i
-                						class="metismenu-icon pe-7s-graph3"></i> Ajouter voiture
-                				</a></li>
-
-                					</ul></li>
-                				<li><a href="/admin/manager" aria-expanded="false"> <i
-                						class="metismenu-icon pe-7s-id"></i> Managers
-                				</a></li>
-                				<li><a href="/admin/client" aria-expanded="false"> <i
-                						class="metismenu-icon pe-7s-id"></i> Clients
-                				</a></li>
-                				<li><a href="/admin/reservation" aria-expanded="false"> <i
-                						class="metismenu-icon pe-7s-id"></i> Reservations
-                				</a></li>
-                				<li><a href="/admin/historiques" aria-expanded="false"> <i
-                						class="metismenu-icon pe-7s-id"></i> Historiques
-                				</a></li>
-
-
+                				<li><a href="/shared/car" class="${dashboard}"> <i
+                                        class="metismenu-icon pe-7s-id"></i> Car
+                                </a></li>
+                                <c:if test="${user.isAdmin()}">
+                                    <li><a href="/shared/reservation" aria-expanded="false"> <i
+                                            class="metismenu-icon pe-7s-id"></i> Reservations
+                                    </a></li>
+                                    <li><a href="/admin/manager" aria-expanded="false"> <i
+                                            class="metismenu-icon pe-7s-id"></i> Managers
+                                    </a></li>
+                                    <li><a href="/admin/client" aria-expanded="false"> <i
+                                            class="metismenu-icon pe-7s-id"></i> Clients
+                                    </a></li>
+                                    <li><a href="/admin/history" aria-expanded="false"> <i
+                                            class="metismenu-icon pe-7s-id"></i> History
+                                    </a></li>
+                                </c:if>
                 			</ul>
                 		</div>
                 	</div>

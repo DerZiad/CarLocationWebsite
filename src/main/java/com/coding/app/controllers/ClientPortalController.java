@@ -1,7 +1,7 @@
 package com.coding.app.controllers;
 
-import com.coding.app.models.Voiture;
-import com.coding.app.repository.VoitureRepository;
+import com.coding.app.models.Car;
+import com.coding.app.repository.CarRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -23,7 +23,7 @@ public class ClientPortalController {
 	private final static String ATTRIBUT_VOITURES = "voitures";
 	
 	@Autowired
-	private VoitureRepository voitureRepository;
+	private CarRepository carRepository;
 	
 	@GetMapping
 	public ModelAndView getString() {
@@ -34,15 +34,15 @@ public class ClientPortalController {
 			model.addObject("username",auth.getName());
 		}
 		
-		List<Voiture> voitures = voitureRepository.findAll();
-		if(voitures.size() < 6) {
-			model.addObject(ATTRIBUT_VOITURES,voitures);
+		List<Car> cars = carRepository.findAll();
+		if(cars.size() < 6) {
+			model.addObject(ATTRIBUT_VOITURES, cars);
 		}else {
-			List<Voiture> sortedVoitures = new ArrayList<Voiture>();
+			List<Car> sortedCars = new ArrayList<Car>();
 			for (int i = 0; i < 6; i++) {
-				sortedVoitures.add(voitures.get(i));
+				sortedCars.add(cars.get(i));
 			}
-			model.addObject(ATTRIBUT_VOITURES,sortedVoitures);
+			model.addObject(ATTRIBUT_VOITURES, sortedCars);
 		}
 		
 		return model;

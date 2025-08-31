@@ -38,7 +38,7 @@ public class Reservation implements Serializable{
 	@ManyToOne(cascade = { CascadeType.DETACH, CascadeType.MERGE, CascadeType.REFRESH, CascadeType.PERSIST })
 	@MapsId("idVoiture")
 	@JsonIgnore
-	private Voiture voiture;
+	private Car car;
 			
 	public boolean isDead() {
 		long dateNow = System.currentTimeMillis();

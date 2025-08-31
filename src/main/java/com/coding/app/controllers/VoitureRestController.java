@@ -2,12 +2,12 @@ package com.coding.app.controllers;
 
 import com.coding.app.dto.CarRequest;
 import com.coding.app.exceptions.NotFoundException;
+import com.coding.app.models.Car;
 import com.coding.app.models.Reservation;
 import com.coding.app.models.User;
-import com.coding.app.models.Voiture;
 import com.coding.app.models.key.KeyReservation;
+import com.coding.app.repository.CarRepository;
 import com.coding.app.repository.ReservationRepository;
-import com.coding.app.repository.VoitureRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.MediaType;
@@ -23,14 +23,14 @@ import org.springframework.web.bind.annotation.*;
 public class VoitureRestController {
 
 	@Autowired
-	private VoitureRepository voitureRepository;
+	private CarRepository carRepository;
 
 	@Autowired
 	private ReservationRepository reservationRepository;
 	
 	@GetMapping
 	public HttpEntity<?> getCars() {
-		return ResponseEntity.ok(voitureRepository.findAll());
+		return ResponseEntity.ok(carRepository.findAll());
 	}
 
 	@PostMapping
@@ -38,15 +38,15 @@ public class VoitureRestController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			System.out.println("Traitement");
-			Voiture voiture = voitureRepository.findById(voitureRequest.carId())
+			Car car = carRepository.findById(voitureRequest.carId())
 					.orElseThrow(() -> new NotFoundException("Voiture not found"));
 			User user = (User) auth.getPrincipal();
 			Reservation reservation = new Reservation();
 			System.out.println(voitureRequest.delay());
 			reservation.setDelai(voitureRequest.delay());
 			reservation.setUser(user);
-			reservation.setVoiture(voiture);
-			reservation.setId(new KeyReservation(user.getUsername(), voiture.getId()));
+			reservation.setCar(car);
+			reservation.setId(new KeyReservation(user.getUsername(), car.getId()));
 			reservationRepository.save(reservation);
 		}
 		return ResponseEntity.accepted().build();

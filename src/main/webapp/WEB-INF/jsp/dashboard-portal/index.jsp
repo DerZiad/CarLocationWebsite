@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<jsp:include page="admin_portal_header.jsp" />
+<jsp:include page="dashboard_header.jsp" />
 
 <div class="app-page-title">
     <div class="page-title-wrapper">
@@ -11,8 +11,8 @@
                 <i class="pe-7s-car icon-gradient bg-mean-fruit" style="color: red;"> </i>
             </div>
             <div>
-                Votre tableau bord
-                <div class="page-title-subheading">Les détails généraux en ce qui concerne votre projet</div>
+                Your Dashboard
+                <div class="page-title-subheading">General details regarding your project</div>
             </div>
         </div>
     </div>
@@ -22,9 +22,8 @@
         <div class="card mb-3 widget-content bg-midnight-bloom">
             <div class="widget-content-wrapper text-white">
                 <div class="widget-content-left">
-                    <div class="widget-heading">Nombre de voyages</div>
-                    <div class="widget-subheading">Le nombre de voyages non
-                        effectués</div>
+                    <div class="widget-heading">Number of Trips</div>
+                    <div class="widget-subheading">Number of trips not completed</div>
                 </div>
                 <div class="widget-content-right">
                     <div class="widget-numbers text-white">
@@ -38,8 +37,8 @@
         <div class="card mb-3 widget-content bg-arielle-smile">
             <div class="widget-content-wrapper text-white">
                 <div class="widget-content-left">
-                    <div class="widget-heading">Nombre d'equipes</div>
-                    <div class="widget-subheading">Nombre d'equipes disponibles</div>
+                    <div class="widget-heading">Number of Teams</div>
+                    <div class="widget-subheading">Number of available teams</div>
                 </div>
                 <div class="widget-content-right">
                     <div class="widget-numbers text-white">
@@ -53,8 +52,8 @@
         <div class="card mb-3 widget-content bg-grow-early">
             <div class="widget-content-wrapper text-white">
                 <div class="widget-content-left">
-                    <div class="widget-heading">Nombre de reservations</div>
-                    <div class="widget-subheading">Nombre de reservations payés</div>
+                    <div class="widget-heading">Number of Reservations</div>
+                    <div class="widget-subheading">Number of paid reservations</div>
                 </div>
                 <div class="widget-content-right">
                     <div class="widget-numbers text-white">
@@ -68,8 +67,8 @@
         <div class="card mb-3 widget-content bg-premium-dark">
             <div class="widget-content-wrapper text-white">
                 <div class="widget-content-left">
-                    <div class="widget-heading">Nombre d'hotel</div>
-                    <div class="widget-subheading">Nombre d'hotels reconnus</div>
+                    <div class="widget-heading">Number of Hotels</div>
+                    <div class="widget-subheading">Number of recognized hotels</div>
                 </div>
                 <div class="widget-content-right">
                     <div class="widget-numbers text-warning">
@@ -86,7 +85,7 @@
             <div class="card-header-tab card-header-tab-animation card-header">
                 <div class="card-header-title">
                     <i class="header-icon lnr-apartment icon-gradient bg-love-kiss">
-                    </i> Visualisation des pays plus visités
+                    </i> Visualization of Most Visited Countries
                 </div>
             </div>
             <div class="card-body">
@@ -147,7 +146,7 @@
                         <div class="widget-subheading">People Interested</div>
                     </div>
                     <div class="widget-content-right">
-                        <div class="widget-numbers text-danger">45,9%</div>
+                        <div class="widget-numbers text-danger">45.9%</div>
                     </div>
                 </div>
             </div>
@@ -184,7 +183,7 @@
     <div class="col-md-12">
         <div class="main-card mb-3 card">
             <div class="card-header">
-                Les equipes les plus bien
+                Top Teams
             </div>
             <div class="table-responsive">
                 <table
@@ -223,4 +222,4 @@
         </div>
     </div>
 </div>
-<jsp:include page="admin_portal_footer.jsp" />
+<jsp:include page="dashboard_footer.jsp" />

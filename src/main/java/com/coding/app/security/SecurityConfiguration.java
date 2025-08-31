@@ -51,8 +51,8 @@ public class SecurityConfiguration {
 						.requestMatchers("/signup").not().authenticated()
 						.requestMatchers("/verification").authenticated()
 						.requestMatchers("/logout").authenticated()
-						.requestMatchers(ServerRole.MANAGER.getSpace() + "/*").hasRole(ServerRole.ADMIN.getRole())
-						.requestMatchers(ServerRole.ADMIN.getSpace() + "/**").hasRole(ServerRole.ADMIN.getRole())
+						.requestMatchers(ServerRole.MANAGER.getPrivateSpace() + "/**").hasAnyRole(ServerRole.ADMIN.getRole(), ServerRole.MANAGER.getRole())
+						.requestMatchers(ServerRole.ADMIN.getPrivateSpace() + "/**").hasRole(ServerRole.ADMIN.getRole())
 						.requestMatchers("/").hasRole(ServerRole.CLIENT.getRole())
 						.anyRequest().permitAll()
 				)
@@ -121,7 +121,7 @@ public class SecurityConfiguration {
 			final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
 			for (ServerRole role : ServerRole.values()) {
 				if (authorities.contains(new SimpleGrantedAuthority("ROLE_" + role.getRole()))) {
-					return role.getSpace();
+					return role.getPrivateSpace();
 				}
 			}
 			return null;

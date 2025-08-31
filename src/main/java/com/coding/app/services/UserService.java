@@ -24,7 +24,7 @@ public class UserService {
     private String defaultAdminUsername;
 
     @Value("${server.admin.password}")
-    private String defaultAdminPassword;
+    private String defaultManagerAdminPassword;
 
     @Value("${server.admin.email}")
     private String defaultAdminEmail;
@@ -38,7 +38,7 @@ public class UserService {
         user.setValidated(true);
         user.setUsername(defaultAdminUsername);
         user.setEmail(defaultAdminEmail);
-        user.setPassword(defaultAdminPassword);
+        user.setPassword(defaultManagerAdminPassword);
         final HashMap<String, String> errors = Utils.validate(user);
         if (errors.isEmpty()) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -53,10 +53,10 @@ public class UserService {
     }
 
     public User createManager(final User user) throws InvalidObjectException {
-        user.setPassword("MyPassword123!");
+        user.setPassword(defaultManagerAdminPassword);
         final HashMap<String, String> errors = Utils.validate(user);
         if (errors.isEmpty()) {
-            user.setPassword(passwordEncoder.encode(user.getUsername()));
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setEnabled(true);
             user.setValidated(true);
             user.addRole(ServerRole.MANAGER);
@@ -82,5 +82,9 @@ public class UserService {
         return userRepository.findAll().stream()
                 .filter(filter)
                 .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public User findByUsername(final String username) throws NotFoundException {
+        return userRepository.findById(username).orElseThrow(()-> new NotFoundException("User not found"));
     }
 }

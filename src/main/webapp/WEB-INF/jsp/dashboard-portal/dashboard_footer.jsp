@@ -9,7 +9,7 @@
                     		<div class="col-xs-1 text-center">
                     			<ul class="nav">
                     				<li class="nav-item"><a href="javascript:void(0);"
-                    					class="nav-link"> Université Moulay Ismaïl </a></li>
+                    					class="nav-link"> Moulay Ismaïl University </a></li>
                     			</ul>
                     		</div>
                     	</div>
@@ -34,7 +34,6 @@
 
     <script
     	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <layout:block name="scriptsfile"></layout:block>
 
 </body>
 </html>

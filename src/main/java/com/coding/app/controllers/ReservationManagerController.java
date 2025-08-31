@@ -1,13 +1,13 @@
 package com.coding.app.controllers;
 
 import com.coding.app.exceptions.NotFoundException;
+import com.coding.app.models.Car;
 import com.coding.app.models.Reservation;
 import com.coding.app.models.User;
-import com.coding.app.models.Voiture;
 import com.coding.app.models.key.KeyReservation;
+import com.coding.app.repository.CarRepository;
 import com.coding.app.repository.ReservationRepository;
 import com.coding.app.repository.UserRepository;
-import com.coding.app.repository.VoitureRepository;
 import com.coding.app.services.EmailService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,7 +23,7 @@ import java.util.List;
 public class ReservationManagerController {
 
 	@Autowired
-	private VoitureRepository voitureRepository;
+	private CarRepository carRepository;
 
 	@Autowired
 	private UserRepository userRepository;
@@ -49,15 +49,15 @@ public class ReservationManagerController {
 	public ModelAndView accepterReservation(@PathVariable("idVoiture") Long idVoiture,
 			@PathVariable("idUser") String username) throws NotFoundException {
 
-		Voiture voiture = voitureRepository.findById(idVoiture)
+		Car car = carRepository.findById(idVoiture)
 				.orElseThrow(() -> new NotFoundException("Voiture not found"));
 		User user = userRepository.findById(username).orElseThrow(() -> new NotFoundException("User not found"));
 
 		Reservation reservation = new Reservation();
 		reservation.setConfirmed(true);
 		reservation.setUser(user);
-		reservation.setVoiture(voiture);
-		reservation.setId(new KeyReservation(user.getUsername(), voiture.getId()));
+		reservation.setCar(car);
+		reservation.setId(new KeyReservation(user.getUsername(), car.getId()));
 		reservationRepository.save(reservation);
 
 		/*Thread emailSend = new Thread(new Runnable() {
@@ -84,15 +84,15 @@ public class ReservationManagerController {
 	public ModelAndView deleteReservation(@PathVariable("idVoiture") Long idVoiture,
 			@PathVariable("idUser") String idUser) throws NotFoundException {
 
-		Voiture voiture = voitureRepository.findById(idVoiture)
+		Car car = carRepository.findById(idVoiture)
 				.orElseThrow(() -> new NotFoundException("Voiture not found"));
 		User user = userRepository.findById(idUser).orElseThrow(() -> new NotFoundException("User not found"));
 
 		Reservation reservation = new Reservation();
 		reservation.setConfirmed(true);
 		reservation.setUser(user);
-		reservation.setVoiture(voiture);
-		reservation.setId(new KeyReservation(user.getUsername(), voiture.getId()));
+		reservation.setCar(car);
+		reservation.setId(new KeyReservation(user.getUsername(), car.getId()));
 		reservationRepository.delete(reservation);
 		/*Thread emailSend = new Thread(new Runnable() {
 

@@ -2,13 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<jsp:include page="admin_portal_header.jsp" />
+<jsp:include page="dashboard_header.jsp" />
 
 <div class="main-card mb-3 card">
     <div class="card-body"></div>
     <div class="main-card mb-3">
         <div class="card-body">
-            <h5 class="card-title">Liste des clients</h5>
+            <h5 class="card-title">Client List</h5>
             <table class="mb-0 table table-striped">
                 <thead>
                     <tr>
@@ -44,4 +44,4 @@
 <script src="/delibdesign/js/Theme/script.js"></script>
 <script src="/delibdesign/js/hotel/template.js"></script>
 
-<jsp:include page="admin_portal_footer.jsp" />
+<jsp:include page="dashboard_footer.jsp" />

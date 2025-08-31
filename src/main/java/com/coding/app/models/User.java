@@ -77,6 +77,10 @@ public class User implements UserDetails, Serializable, Comparable<User> {
 		return this.validated;
 	}
 
+	public boolean isAdmin() {
+		return roles.contains(ServerRole.ADMIN.name());
+	}
+
 	public void addRole(ServerRole role) {
 		roles = roles + role.getRole() + ";";
 	}

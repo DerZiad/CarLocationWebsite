@@ -7,8 +7,9 @@ import lombok.Getter;
 @Getter
 public enum ServerRole {
 
-	ADMIN("ADMIN", "/admin"), CLIENT("CLIENT", "/"),MANAGER("MANAGER","/");
+    ADMIN("ADMIN", "/admin", "/shared"), CLIENT("CLIENT", "/", "/"), MANAGER("MANAGER", "/shared", "/shared");
 
-	private final String role;
-	private final String space;
+    private final String role;
+    private final String privateSpace;
+    private final String targetUrl;
 }
