@@ -1,68 +1,88 @@
 package com.coding.app.security;
 
+import com.coding.app.models.enums.ServerRole;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.DefaultRedirectStrategy;
+import org.springframework.security.web.RedirectStrategy;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.WebAttributes;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import com.coding.app.models.enums.ServerRole;
+import java.io.IOException;
+import java.util.Collection;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
-	private UserPrincipalDetailsService userPrincipalDetailsService;
+@RequiredArgsConstructor
+public class SecurityConfiguration {
 
-	private final static String PRIVATE_REMEMBER_KEY = "hellofriendimsmookerzz";
-	private final static int DELAI = 24 * 3600;
+	private final UserDetailsServiceImpl userDetailsServiceImpl;
 
-	public SecurityConfiguration(UserPrincipalDetailsService userPrincipalDetailsService) {
-		this.userPrincipalDetailsService = userPrincipalDetailsService;
-	}
+	private static final String PRIVATE_REMEMBER_KEY = "hellofriendimsmookerzz";
+	private static final int DELAI = 24 * 3600;
 
-	@Override
-	protected void configure(AuthenticationManagerBuilder auth) {
-		auth.authenticationProvider(authenticationProvider());
-	}
-
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-
-		http.csrf().disable().exceptionHandling().authenticationEntryPoint(new Http403ForbiddenEntryPoint() {
-		}).and().authenticationProvider(authenticationProvider()).authorizeRequests().antMatchers("/*").permitAll()
-				.antMatchers("/signup").permitAll()
-				.antMatchers(ServerRole.MANAGER.getSpace() + "/*").hasRole(ServerRole.ADMIN.getRole())
-				.antMatchers(ServerRole.ADMIN.getSpace() + "/*").hasRole(ServerRole.ADMIN.getRole())
-				.antMatchers("/").hasRole(ServerRole.CLIENT.getRole())
-				.antMatchers("/verification").authenticated()
-				.antMatchers("/logout").authenticated().anyRequest().permitAll().and().formLogin()
-				.loginProcessingUrl("/login").permitAll().loginPage("/login").permitAll()
-				.successHandler(mySimpleUrlAuthenticationHandler()).failureUrl("/login?error=true").failureHandler(null)
-				.usernameParameter("username").passwordParameter("password").and().logout().deleteCookies("JSESSIONID")
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/").and().rememberMe()
-				.tokenValiditySeconds(DELAI).key(PRIVATE_REMEMBER_KEY).rememberMeParameter("rememberme")
-				.userDetailsService(userPrincipalDetailsService);
-	}
-	
 	@Bean
-	public AuthenticationManager authenticationManager() throws Exception {
-		return super.authenticationManager();
+	public SecurityFilterChain securityFilterChain(final HttpSecurity http) throws Exception {
+		return http
+				.csrf(AbstractHttpConfigurer::disable)
+				.exceptionHandling(e -> e.authenticationEntryPoint(new Http403ForbiddenEntryPoint()))
+				.authenticationProvider(authenticationProvider())
+				.authorizeHttpRequests(auth -> auth
+						.requestMatchers("/*").permitAll()
+						.requestMatchers("/signup").not().authenticated()
+						.requestMatchers("/verification").authenticated()
+						.requestMatchers("/logout").authenticated()
+						.requestMatchers(ServerRole.MANAGER.getPrivateSpace() + "/**").hasAnyRole(ServerRole.ADMIN.getRole(), ServerRole.MANAGER.getRole())
+						.requestMatchers(ServerRole.ADMIN.getPrivateSpace() + "/**").hasRole(ServerRole.ADMIN.getRole())
+						.requestMatchers("/").hasRole(ServerRole.CLIENT.getRole())
+						.anyRequest().permitAll()
+				)
+				.formLogin(form -> form
+						.loginProcessingUrl("/login").permitAll()
+						.loginPage("/login").permitAll()
+						.successHandler(successAuthenticationHandler())
+						.failureUrl("/login?error=true")
+						.usernameParameter("username")
+						.passwordParameter("password")
+				)
+				.logout(logout -> logout
+						.deleteCookies("JSESSIONID")
+						.logoutRequestMatcher(AntPathRequestMatcher.antMatcher("/logout"))
+						.logoutSuccessUrl("/")
+				)
+				.rememberMe(r -> r
+						.tokenValiditySeconds(DELAI)
+						.key(PRIVATE_REMEMBER_KEY)
+						.rememberMeParameter("rememberme")
+						.userDetailsService(userDetailsServiceImpl)
+				)
+				.build();
 	}
 
 	@Bean
 	public DaoAuthenticationProvider authenticationProvider() {
-		DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
-		daoAuthenticationProvider.setPasswordEncoder(passwordEncoder());
-		daoAuthenticationProvider.setUserDetailsService(this.userPrincipalDetailsService);
-
-		return daoAuthenticationProvider;
+		DaoAuthenticationProvider provider = new DaoAuthenticationProvider(userDetailsServiceImpl);
+		provider.setPasswordEncoder(passwordEncoder());
+		return provider;
 	}
 
 	@Bean
@@ -70,8 +90,50 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		return new BCryptPasswordEncoder();
 	}
 
+	// Expose AuthenticationManager for use in services (if needed)
 	@Bean
-	public MySimpleUrlAuthenticationHandler mySimpleUrlAuthenticationHandler() {
-		return new MySimpleUrlAuthenticationHandler();
+	public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+		return config.getAuthenticationManager();
+	}
+
+	@Bean
+	public SuccessAuthenticationHandler successAuthenticationHandler() {
+		return new SuccessAuthenticationHandler();
+	}
+
+	public static class SuccessAuthenticationHandler implements AuthenticationSuccessHandler {
+
+		private final RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
+
+		@Override
+		public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
+
+			final String targetUrl = determineTargetUrl(authentication);
+			if (response.isCommitted()) {
+				return;
+			}
+			redirectStrategy.sendRedirect(request, response, targetUrl);
+			clearAuthenticationAttributes(request);
+		}
+
+		protected String determineTargetUrl(Authentication authentication) {
+
+			final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
+			for (ServerRole role : ServerRole.values()) {
+				if (authorities.contains(new SimpleGrantedAuthority("ROLE_" + role.getRole()))) {
+					return role.getTargetUrl();
+				}
+			}
+			return null;
+		}
+
+		protected void clearAuthenticationAttributes(HttpServletRequest request) {
+			HttpSession session = request.getSession(false);
+
+			if (session == null) {
+				return;
+			}
+			session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+		}
 	}
 }

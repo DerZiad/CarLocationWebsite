@@ -1,7 +1,7 @@
-// Inline code
-code {
-  @include font-size($code-font-size);
-  color: $code-color;
+// Inline verificationCode
+verificationCode {
+  @include font-size($verificationCode-font-size);
+  color: $verificationCode-color;
   word-break: break-word;
 
   // Streamline the style when inside anchors to avoid broken underline and more
@@ -27,21 +27,21 @@ kbd {
   }
 }
 
-// Blocks of code
+// Blocks of verificationCode
 pre {
   display: block;
-  @include font-size($code-font-size);
+  @include font-size($verificationCode-font-size);
   color: $pre-color;
 
-  // Account for some code outputs that place code tags in pre tags
-  code {
+  // Account for some verificationCode outputs that place verificationCode tags in pre tags
+  verificationCode {
     @include font-size(inherit);
     color: inherit;
     word-break: normal;
   }
 }
 
-// Enable scrollable blocks of code
+// Enable scrollable blocks of verificationCode
 .pre-scrollable {
   max-height: $pre-scrollable-max-height;
   overflow-y: scroll;

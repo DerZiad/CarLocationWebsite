@@ -1,38 +1,51 @@
-# Car Location Project
+# Car Location
 
-This project represents my work during a coding day at UMI Morocco for my 5th semester of Bachelor's degree. It is a web application developed using the Spring framework, aimed at providing efficient car management for a rental agency.
+A web application for car rental management, built with Spring Boot and MySQL. Easily deployable using Docker Compose.
 
-## Requirements
-Make sure you have the following prerequisites installed on your system before running the application:
+## Features
 
-- **JDK 17:** Java Development Kit version 17 or later.
-- **Maven:** Dependency management and build tool for Java projects.
-- **MySQL:** Database management system. Ensure you have a MySQL server set up.
+- Car management for rental agencies
+- Reservation system
+- User-friendly client interface
 
-## Getting Started
+## Prerequisites
 
-### 1. Clone the Repository
-```bash
-git clone https://github.com/DerZiad/CarLocationWebsite.git
-```
+- [Docker](https://www.docker.com/get-started)
+- [Docker Compose](https://docs.docker.com/compose/)
 
-### 2. Navigate to the Project Directory
-```bash
-cd CarLocation
-```
-### 3. Configure MySQL Database
-```bash
-spring.datasource.url=jdbc:mysql://localhost:3306/your_database_name
-spring.datasource.username=your_username
-spring.datasource.password=your_password
-```
-### 4. Launch the Application
-Use the following Maven command to run the application:
-```bash
-mvn spring-boot:run
-```
-The application will be accessible at http://localhost:8080.
-### 5. Features
- - **Car Management:** Efficiently manage cars available for rent.
- - **Reservation System:** Reserve cars for specific dates.
- - **Client Interface:** User-friendly interface for clients to rent cars.
+## Quick Start
+
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/DerZiad/CarLocationWebsite.git
+   cd CarLocation
+   ```
+
+2. **Start the application with Docker Compose**
+   ```bash
+   docker-compose up --build
+   ```
+
+   This will start both the MySQL database and the Spring Boot server.
+
+3. **Access the application**
+
+   - The backend API will be available at: [http://localhost:8080](http://localhost:8080)
+   - MySQL will be available at: `localhost:3306` (see `docker-compose.yml` for credentials)
+
+## Configuration
+
+- Database credentials and other settings can be adjusted in `docker-compose.yml` and the Spring Boot configuration files.
+
+## Development
+
+- To run locally without Docker, ensure you have Java 21 and Maven installed.
+- Build and run with:
+  ```bash
+  mvn clean package
+  java -jar server/target/server.jar
+  ```
+
+## License
+
+MIT

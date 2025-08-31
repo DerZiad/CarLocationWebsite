@@ -1,34 +1,24 @@
 package com.coding.app.models;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-
+import com.coding.app.models.enums.ServerRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.coding.app.models.enums.ServerRole;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -37,38 +27,36 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class User implements UserDetails, Serializable, Comparable<User> {
 
-	private static final long serialVersionUID = 1L;
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-
+    @Id
 	@Column(name = "username", unique = true, length = 50, nullable = false)
-	@NotNull(message = "Le nom d'utilisateur ne doit pas être vide")
+	@NotNull(message = "Username must not be null")
+	@Pattern(regexp = ".*\\..*", message = "Username must contain a dot (.)")
 	private String username;
 
 	@Column(name = "password", length = 100, nullable = false)
-	@Length(min = 8, max = 100, message = "Veuillez respecter les contraintes pour valider votre password")
-	@NotEmpty(message = "Le password ne doit pas être vide")
+	@Length(min = 8, max = 100, message = "Password must be between 8 and 100 characters")
+	@NotEmpty(message = "Password must not be empty")
+	@Pattern(
+		regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[!@#$%^&*()_+\\-={}|\\[\\]:\";'<>?,./])[A-Za-z\\d!@#$%^&*()_+\\-={}|\\[\\]:\";'<>?,./]{8,}$",
+		message = "Password must have at least 8 characters, one uppercase letter, one lowercase letter, one digit, and one special character"
+	)
 	@JsonIgnore
 	private String password;
 
-	@Email(message ="Must be a email valid")
-	@NotNull(message="Email ne doit pas etre vide")
+	@Email(message = "Email must be valid")
+	@NotNull(message = "Email must not be null")
 	private String email;
 	
 	private String roles = "";
 	
-	@OneToOne(cascade = {CascadeType.ALL},mappedBy = "user",targetEntity = Verification.class)
-	private Verification verificationEmail;
-	
-	@OneToOne(cascade = {CascadeType.ALL},mappedBy = "user",targetEntity = Verification.class)
-	private Verification verificationRecover;
-	
+	@OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<VerificationCode> verificationCodes = new ArrayList<>();
+
 	private boolean accountNonExpired = true;
 	private boolean accountNonLocked = true;
 	private boolean credentialsNonExpired = true;
 	private boolean enabled = true;
-	private boolean verificated = false;
+	private boolean validated = false;
 	
 	@OneToMany(cascade = {CascadeType.ALL},mappedBy = "user",targetEntity = Reservation.class)
 	private List<Reservation> reservations = new ArrayList<Reservation>();
@@ -82,19 +70,16 @@ public class User implements UserDetails, Serializable, Comparable<User> {
 		return authorities;
 	}
 
-	public void addRole(ServerRole role) {
-		roles = roles + role.getRole() + ";";
+	public boolean isEmailVerified() {
+		return this.validated;
 	}
 
-	public void removeRole(ServerRole role) {
-		String rolesTemp = roles;
-		roles = "";
-		for (String roleString : rolesTemp.split(";")) {
-			if (roleString.equals(role.getRole()))
-				continue;
-			else
-				roles = roles + roleString + ";";
-		}
+	public boolean isAdmin() {
+		return roles.contains(ServerRole.ADMIN.name());
+	}
+
+	public void addRole(ServerRole role) {
+		roles = roles + role.getRole() + ";";
 	}
 
 	@Override
