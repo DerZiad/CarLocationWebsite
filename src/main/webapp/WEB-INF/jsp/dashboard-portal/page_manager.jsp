@@ -62,7 +62,7 @@
                     <table id="managerTable" class="mb-0 table table-striped">
                         <thead>
                         <tr>
-                            <th>User</th>
+                            <th>Username</th>
                             <th>Email</th>
                             <th>Action</th>
                         </tr>
@@ -78,7 +78,7 @@
                                 <c:if test="${manager.enabled}">
                                     <td>
                                         <a href="<c:url value='/admin/ban?username=${manager.username}&amp;userType=manager'/>" class="delete">
-                                            <i class="material-icons" data-toggle="tooltip" title="Delete" style="color: #f44336;">&#xE872;</i>
+                                            <i class="material-icons" data-toggle="tooltip" title="Ban Manager" style="color: #f44336;">&#xE872;</i>
                                         </a>
                                     </td>
                                 </c:if>

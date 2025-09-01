@@ -39,8 +39,7 @@
     <div class="col-md-6">
         <div class="main-card mb-3 card card-equal">
             <div class="card-body">
-                <form class="form-group" action="<c:url value="/shared/car"/>"
-                    enctype="multipart/form-data" method="POST" id="carForm">
+                <form class="form-group" action="<c:url value="/shared/car"/>" enctype="multipart/form-data" method="POST" id="carForm">
                     <h4 class="card-title mb-4 text-center">Add New Car</h4>
                     <div class="form-row">
                         <div class="col-md-6 mb-3">
@@ -83,21 +82,14 @@
                     </div>
                     <div class="form-row align-items-center mb-3">
                         <div class="col-md-12">
-                            <label for="picturePart">Car Image</label>
-                            <input type="file" id="picturePart" class="form-control" accept="image/*" />
-                            <input type="hidden" name="base64Image" id="base64Image" />
-                            <small class="text-danger" id="imageError"><c:out value="${errors.image}"/></small>
+                            <label for="partFile">Car Image</label>
+                            <input type="file" id="partFile" name="partFile" class="form-control" accept="image/*" />
+                            <small class="text-danger" id="imageError"><c:out value="${errors.image}"/></small><br>
                             <small style="color: #888;">Max. file size: 10MB</small>
                         </div>
                     </div>
                     <div class="text-center">
-                        <button
-                            class="btn btn-primary px-5"
-                            type="submit"
-                            style="background-color: #222 !important; color: #fff !important; font-weight: bold !important; border: none;"
-                        >
-                            Add Car
-                        </button>
+                        <button class="btn btn-primary px-5" type="submit" style="background-color: #222 !important; color: #fff !important; font-weight: bold !important; border: none;">Add Car</button>
                     </div>
                 </form>
             </div>
@@ -125,6 +117,7 @@
                     <th>Category</th>
                     <th>Year</th>
                     <th>Rental Price</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -137,6 +130,11 @@
                         <td style="color: black">${carItem.category.displayName}</td>
                         <td style="color: black">${carItem.year}</td>
                         <td style="color: black">${carItem.price} €</td>
+                        <td>
+                            <a href="<c:url value='/shared/car/delete/${carItem.id}'/>" class="delete" title="Delete Car">
+                                <i class="material-icons" style="color: #f44336;" data-toggle="tooltip">&#xE872;</i>
+                            </a>
+                        </td>
                     </tr>
                 </c:forEach>
             </tbody>
@@ -149,7 +147,7 @@
 <script>
 function setPreviewBackground(src) {
     const previewBg = document.getElementById('previewBg');
-    if (src && src !== "data:image/jpeg;base64,") {
+    if (src) {
         previewBg.style.backgroundImage = 'url(' + src + ')';
         previewBg.style.backgroundSize = 'contain';
         previewBg.style.backgroundRepeat = 'no-repeat';
@@ -159,7 +157,7 @@ function setPreviewBackground(src) {
     }
 }
 
-document.getElementById('picturePart').addEventListener('change', function(event) {
+document.getElementById('partFile').addEventListener('change', function(event) {
     const file = event.target.files[0];
     const imageError = document.getElementById('imageError');
     imageError.textContent = "";
@@ -167,26 +165,22 @@ document.getElementById('picturePart').addEventListener('change', function(event
         if (file.size > 10 * 1024 * 1024) { // 10MB
             imageError.textContent = "Image is too large. Maximum size is 10MB.";
             event.target.value = "";
-            document.getElementById('base64Image').value = "";
             setPreviewBackground("");
             return;
         }
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            setPreviewBackground(e.target.result);
-            var base64 = e.target.result.split(',')[1];
-            document.getElementById('base64Image').value = base64;
-        };
-        reader.readAsDataURL(file);
+        const objectUrl = URL.createObjectURL(file);
+        setPreviewBackground(objectUrl);
     } else {
-        setPreviewBackground("data:image/jpeg;base64,${car.base64Image}");
-        document.getElementById('base64Image').value = "";
+        setPreviewBackground("");
     }
 });
 
 window.addEventListener('DOMContentLoaded', function() {
-    setPreviewBackground("data:image/jpeg;base64,${car.base64Image}");
-    document.getElementById('base64Image').value = "${car.base64Image}";
+    // If editing, show existing image
+    var existingImage = "${car.base64Image}";
+    if (existingImage) {
+        setPreviewBackground("data:image/jpeg;base64," + existingImage);
+    }
 });
 
 function filterCarTable() {

@@ -3,6 +3,7 @@ package com.coding.app.services;
 import java.util.HashMap;
 import java.util.List;
 
+import com.coding.app.dto.MyCarRequest;
 import org.springframework.stereotype.Service;
 
 import com.coding.app.exceptions.InvalidObjectException;
@@ -11,6 +12,7 @@ import com.coding.app.models.Car;
 import com.coding.app.repository.CarRepository;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -19,7 +21,19 @@ public class CarService {
     private final CarRepository carRepository;
     private final HistoryService historyService;
 
-    public void addCar(final Car car) throws InvalidObjectException {
+    public void addCar(final MyCarRequest carRequest, final MultipartFile imageFile) throws InvalidObjectException {
+        final Car car = new Car();
+        car.setBrand(carRequest.getBrand());
+        car.setCategory(carRequest.getCategory());
+        car.setYear(carRequest.getYear());
+        car.setPrice(carRequest.getPrice());
+        if (imageFile != null && !imageFile.isEmpty()) {
+            try {
+                car.setImage(imageFile.getBytes());
+            } catch (final Exception ignored) {
+
+            }
+        }
         final HashMap<String, String> errors = Utils.validate(car);
         if (errors.isEmpty()) {
             historyService.addHistory("New car added: " + car.getBrand());
