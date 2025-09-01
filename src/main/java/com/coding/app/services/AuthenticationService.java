@@ -90,8 +90,8 @@ public class AuthenticationService {
         sendConfirmationEmail.start();
     }
 
-    public void validateAccount(final String username, final String code) throws NotFoundException, InvalidObjectException {
-        /*final User user = userRepository.findById(username).orElseThrow(() -> new NotFoundException("User not found"));
+    /*public void verifyUser(final String username, final String code) throws NotFoundException, InvalidObjectException {
+        final User user = userRepository.findById(username).orElseThrow(() -> new NotFoundException("User not found"));
         final VerificationCode verificationCode = verificationCodeRepository.findByUserAndCodeAndType(user, code, EmailType.CONFIRMATION)
                 .orElseThrow(() -> new InvalidObjectException("Invalid confirmation code"));
         if (verificationCode.isDead()) {
@@ -100,8 +100,8 @@ public class AuthenticationService {
         user.setValidated(true);
         userRepository.save(user);
         verificationCode.setUser(null);
-        verificationCodeRepository.delete(verificationCode);*/
-    }
+        verificationCodeRepository.delete(verificationCode);
+    }*/
 
     // Privates Functions
     private String generateCode() {

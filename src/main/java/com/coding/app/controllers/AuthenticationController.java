@@ -39,8 +39,7 @@ public class AuthenticationController {
 
     @GetMapping("/signup")
     public ModelAndView signup() {
-        final ModelAndView model = new ModelAndView(PATH_SIGNUP);
-        return model;
+        return new ModelAndView(PATH_SIGNUP);
     }
 
     @PostMapping("/signup")
@@ -56,10 +55,11 @@ public class AuthenticationController {
         return model;
     }
 
-    @GetMapping("/verification")
+    /*@GetMapping("/verification")
     public ModelAndView validSignupGet(@RequestParam("code") String code, @RequestParam("username") String username) {
+        authenticationService.verifyUserCode(username, code);
         return new ModelAndView(PATH_VERIFICATION);
-    }
+    }*/
 
     /*
     @PostMapping("/verification")
