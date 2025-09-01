@@ -8,11 +8,11 @@
     <div class="page-title-wrapper">
         <div class="page-title-heading">
             <div class="page-title-icon">
-                <i class="pe-7s-car icon-gradient bg-mean-fruit" style="color: red;"> </i>
+                <i class="pe-7s-car icon-gradient bg-mean-fruit" style="color: red;"></i>
             </div>
             <div>
-                Your Dashboard
-                <div class="page-title-subheading">General details regarding your project</div>
+                MyCar Dashboard
+                <div class="page-title-subheading">In this dashboard, it will be shown statistics and everything concerning the car rental in the website</div>
             </div>
         </div>
     </div>
