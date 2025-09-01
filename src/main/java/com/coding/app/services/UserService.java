@@ -1,20 +1,22 @@
 package com.coding.app.services;
 
-import com.coding.app.exceptions.InvalidObjectException;
-import com.coding.app.exceptions.NotFoundException;
-import com.coding.app.models.User;
-import com.coding.app.models.enums.ServerRole;
-import com.coding.app.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.coding.app.exceptions.InvalidObjectException;
+import com.coding.app.exceptions.NotFoundException;
+import com.coding.app.models.User;
+import com.coding.app.models.enums.ServerRole;
+import com.coding.app.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

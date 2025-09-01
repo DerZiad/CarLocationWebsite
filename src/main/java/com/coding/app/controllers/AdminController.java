@@ -1,31 +1,40 @@
 package com.coding.app.controllers;
 
+import static com.coding.app.controllers.ClientViewAttributes.ADMIN_CLIENT_URI;
+import static com.coding.app.controllers.ClientViewAttributes.JSP_ADMIN_CLIENT;
+import static com.coding.app.controllers.ClientViewAttributes.MODEL_AND_VIEW_CLIENTS;
+import static com.coding.app.controllers.ClientViewAttributes.REDIRECT_ADMIN_CLIENT;
+import static com.coding.app.controllers.DashboardViewAttributes.CURRENT_USER;
+import static com.coding.app.controllers.HistoryViewAttributes.ADMIN_HISTORY_URI;
+import static com.coding.app.controllers.HistoryViewAttributes.JSP_ADMIN_HISTORY;
+import static com.coding.app.controllers.HistoryViewAttributes.MODEL_AND_VIEW_HISTORIES_ATTRIBUTE;
+import static com.coding.app.controllers.HistoryViewAttributes.REDIRECT_HISTORY;
+import static com.coding.app.controllers.ManagerViewAttributes.ADMIN_MANAGER_URI;
+import static com.coding.app.controllers.ManagerViewAttributes.JSP_ADMIN_MANAGER;
+import static com.coding.app.controllers.ManagerViewAttributes.MODEL_AND_VIEW_MANAGERS_ATTRIBUTE;
+import static com.coding.app.controllers.ManagerViewAttributes.MODEL_AND_VIEW_MANAGER_ATTRIBUTE;
+import static com.coding.app.controllers.ManagerViewAttributes.REDIRECT_MANAGER;
+
+import java.util.List;
+
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.ws.server.endpoint.annotation.RequestPayload;
+
 import com.coding.app.exceptions.InvalidObjectException;
 import com.coding.app.exceptions.NotFoundException;
 import com.coding.app.models.User;
 import com.coding.app.models.enums.ServerRole;
 import com.coding.app.services.HistoryService;
 import com.coding.app.services.UserService;
+
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.ModelAndView;
-import org.springframework.ws.server.endpoint.annotation.RequestPayload;
-
-import java.util.List;
-
-import static com.coding.app.controllers.ClientViewAttributes.*;
-import static com.coding.app.controllers.ClientViewAttributes.REDIRECT_ADMIN_CLIENT;
-import static com.coding.app.controllers.DashboardViewAttributes.CURRENT_USER;
-import static com.coding.app.controllers.HistoryViewAttributes.*;
-import static com.coding.app.controllers.ManagerViewAttributes.*;
-import static com.coding.app.controllers.ManagerViewAttributes.REDIRECT_MANAGER;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class ClientViewAttributes {

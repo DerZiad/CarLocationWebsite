@@ -1,15 +1,8 @@
 package com.coding.app.services;
 
-import com.coding.app.exceptions.InvalidObjectException;
-import com.coding.app.exceptions.NotFoundException;
-import com.coding.app.models.User;
-import com.coding.app.models.VerificationCode;
-import com.coding.app.models.enums.EmailType;
-import com.coding.app.models.enums.ServerRole;
-import com.coding.app.repository.UserRepository;
-import com.coding.app.repository.VerificationCodeRepository;
-import jakarta.servlet.http.HttpServletRequest;
-import lombok.RequiredArgsConstructor;
+import java.util.HashMap;
+import java.util.Random;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,8 +11,17 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
-import java.util.Random;
+import com.coding.app.exceptions.InvalidObjectException;
+import com.coding.app.exceptions.NotFoundException;
+import com.coding.app.models.User;
+import com.coding.app.models.VerificationCode;
+import com.coding.app.models.enums.EmailType;
+import com.coding.app.models.enums.ServerRole;
+import com.coding.app.repository.UserRepository;
+import com.coding.app.repository.VerificationCodeRepository;
+
+import jakarta.servlet.http.HttpServletRequest;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

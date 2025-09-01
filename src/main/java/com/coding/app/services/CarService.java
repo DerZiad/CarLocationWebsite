@@ -1,24 +1,16 @@
 package com.coding.app.services;
 
+import java.util.HashMap;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 import com.coding.app.exceptions.InvalidObjectException;
 import com.coding.app.exceptions.NotFoundException;
 import com.coding.app.models.Car;
-import com.coding.app.models.History;
-import com.coding.app.models.enums.Brand;
-import com.coding.app.models.enums.Category;
 import com.coding.app.repository.CarRepository;
-import jakarta.validation.ConstraintViolation;
-import jakarta.validation.Validation;
-import jakarta.validation.Validator;
-import jakarta.validation.ValidatorFactory;
-import lombok.RequiredArgsConstructor;
-import org.aspectj.weaver.ast.Not;
-import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

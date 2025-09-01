@@ -1,4 +1,17 @@
-package com.coding.app.controllers;
+package com.coding.app.restcontrollers;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.coding.app.dto.CarRequest;
 import com.coding.app.exceptions.NotFoundException;
@@ -8,25 +21,18 @@ import com.coding.app.models.User;
 import com.coding.app.models.key.KeyReservation;
 import com.coding.app.repository.CarRepository;
 import com.coding.app.repository.ReservationRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.web.bind.annotation.*;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping(name = "/api/voitures", produces = MediaType.APPLICATION_JSON_VALUE, value = "/api/voitures")
+@RequestMapping(name = "/api/cars", produces = MediaType.APPLICATION_JSON_VALUE, value = "/api/cars")
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class VoitureRestController {
+@RequiredArgsConstructor
+public class CarRestController {
 
-	@Autowired
-	private CarRepository carRepository;
+	private final CarRepository carRepository;
 
-	@Autowired
-	private ReservationRepository reservationRepository;
+	private final ReservationRepository reservationRepository;
 	
 	@GetMapping
 	public HttpEntity<?> getCars() {
@@ -35,7 +41,7 @@ public class VoitureRestController {
 
 	@PostMapping
 	public HttpEntity<?> addVoiture(@RequestBody CarRequest voitureRequest) throws NotFoundException {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		final Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		if (!(auth instanceof AnonymousAuthenticationToken)) {
 			System.out.println("Traitement");
 			Car car = carRepository.findById(voitureRequest.carId())

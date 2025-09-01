@@ -1,16 +1,18 @@
 package com.coding.app.services;
 
-import com.coding.app.exceptions.NotFoundException;
-import com.coding.app.models.Reservation;
-import com.coding.app.models.key.KeyReservation;
-import com.coding.app.repository.ReservationRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import org.springframework.stereotype.Service;
+
+import com.coding.app.exceptions.NotFoundException;
+import com.coding.app.models.Reservation;
+import com.coding.app.models.key.KeyReservation;
+import com.coding.app.repository.ReservationRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

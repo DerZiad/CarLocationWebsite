@@ -1,11 +1,13 @@
 package com.coding.app.services;
 
-import com.coding.app.models.History;
-import com.coding.app.repository.HistoryRepository;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.coding.app.models.History;
+import com.coding.app.repository.HistoryRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor

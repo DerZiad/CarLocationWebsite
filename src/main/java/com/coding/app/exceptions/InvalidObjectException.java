@@ -1,12 +1,13 @@
 package com.coding.app.exceptions;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import java.util.HashMap;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.HashMap;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @ResponseStatus(HttpStatus.BAD_REQUEST)
 @NoArgsConstructor

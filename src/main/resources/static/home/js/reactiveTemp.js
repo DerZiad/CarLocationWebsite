@@ -25,7 +25,7 @@ jQuery(document).ready(function() {
 		type: "GET",
 		headers: { Accept: "application/json" },
 		contentType: "application/json",
-		url: "/api/voitures/",
+		url: "/api/cars/",
 		success: function(response) {
 			voitures = response
 		}, error: function(xhr, ajaxOptions, thrownError) {
@@ -49,7 +49,7 @@ jQuery(document).ready(function() {
 					type: "POST",
 					headers: { Accept: "application/json" },
 					contentType: "application/json",
-					url: "/api/voitures",
+					url: "/api/cars",
 					data: datas,
 					success: function(response) {
 						$('#confirmation').html("Vous allez recevoir un email de confirmation de nos managers")

@@ -1,5 +1,11 @@
 package com.coding.app.controllers;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.coding.app.exceptions.NotFoundException;
 import com.coding.app.models.Car;
 import com.coding.app.models.Reservation;
@@ -9,32 +15,25 @@ import com.coding.app.repository.CarRepository;
 import com.coding.app.repository.ReservationRepository;
 import com.coding.app.repository.UserRepository;
 import com.coding.app.services.EmailService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 
 @Controller
 @RequestMapping("/manager/reservation")
+@RequiredArgsConstructor
 public class ReservationManagerController {
 
-	@Autowired
-	private CarRepository carRepository;
+	private final CarRepository carRepository;
 
-	@Autowired
-	private UserRepository userRepository;
-	@Autowired
-	private ReservationRepository reservationRepository;
-	@Autowired
-	private EmailService emailService;
+	private final UserRepository userRepository;
 
-	private final static String PAGE_RESERVATION = "manager/reservation";
-	private final static String ATTRIBUT_RESERVATIONS = "reservations";
-	private final static String REDIRECT_RESERVATION = "redirect:/manager/reservation";
+	private final ReservationRepository reservationRepository;
+
+	private final EmailService emailService;
+
+	private static final String PAGE_RESERVATION = "manager/reservation";
+	private static final String ATTRIBUT_RESERVATIONS = "reservations";
+	private static final String REDIRECT_RESERVATION = "redirect:/manager/reservation";
 
 	@GetMapping("/accepter/{idVoiture}/{idUser}")
 	public ModelAndView acceptReservation(@PathVariable("idVoiture") Long idVoiture,
