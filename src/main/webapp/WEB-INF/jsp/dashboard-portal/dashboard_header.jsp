@@ -12,8 +12,8 @@
     <meta http-equiv="Content-Language" content="en">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 
-    <title>Car Rental</title>
-    <link rel="shortcut icon" type="image/icon" href="assets/logo/favicon.png"/>
+    <title>Dashboard</title>
+    <link rel="shortcut icon" type="image/x-icon" href="<c:url value="/images/fav.ico"/>"/>
     <meta name="viewport"
           content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no"/>
     <meta name="description"
@@ -49,12 +49,46 @@
             chart.draw(data, google.charts.Bar.convertOptions(options));
         }
     </script>
+    <style>
+        .app-header {
+            background: #222 !important; /* matte black */
+            color: #f5f5f5 !important;
+        }
+        .app-header__logo,
+        .app-header__content,
+        .app-header__mobile-menu,
+        .app-header__menu {
+            background: transparent !important;
+            color: #f5f5f5 !important;
+        }
+        .app-header__logo img {
+            filter: brightness(0.85);
+        }
+        .header-user-info .widget-heading,
+        .header-user-info .widget-subheading,
+        .app-header-right,
+        .app-header__content * {
+            color: #f5f5f5 !important;
+        }
+        .btn-group .dropdown-menu {
+            background: #333;
+            color: #f5f5f5;
+        }
+        .btn-group .dropdown-menu a {
+            color: #f5f5f5;
+        }
+        .btn-group .dropdown-menu a:hover {
+            background: #444;
+        }
+    </style>
 </head>
 <body>
 <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
     <div class="app-header header-shadow">
         <div class="app-header__logo">
-            <div class="logo-src"></div>
+            <div>
+                <img src="<c:url value="/images/logo.svg"/>" style="height:40px;">
+            </div>
             <div class="header__pane ml-auto">
                 <div>
                     <button type="button"
@@ -105,7 +139,7 @@
                                 </div>
                             </div>
                             <div class="widget-content-left  ml-3 header-user-info">
-                                <div class="widget-heading">Admin</div>
+                                <div class="widget-heading"><c:out value="${user.username}"/></div>
                             </div>
                         </div>
                     </div>
