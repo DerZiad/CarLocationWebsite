@@ -17,7 +17,7 @@
     <meta name="description"
     	content="This is an example dashboard created using built-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
-    <link href="/dashboard/delibdesign/css/main.css" rel="stylesheet">
+    <link href="/dashboard-design/css/main.css" rel="stylesheet">
     <link rel="stylesheet"
     	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <layout:block name="cssfiles"></layout:block>
