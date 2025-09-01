@@ -4,7 +4,7 @@
 
 				</div>
 				<div class="app-wrapper-footer">
-					<footer class="app-footer" style="background:#222; color:#f5f5f5; padding:18px 0; border-top:1px solid #333;">
+					<footer class="app-footer" style="background:#333; color:#f5f5f5; padding:18px 0; border-top:1px solid #444;">
 						<div style="text-align:center;">
 							<span style="font-size:15px; font-weight:500;">&copy; <c:out value="MyCar"/> 2025. All rights reserved.</span>
 							<br>

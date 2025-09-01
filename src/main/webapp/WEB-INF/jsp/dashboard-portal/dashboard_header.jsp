@@ -55,6 +55,20 @@
         .btn-group .dropdown-menu a:hover {
             background: #444;
         }
+        /* Sidebar Anpassung */
+        .app-sidebar, .app-sidebar__inner, .vertical-nav-menu, .scrollbar-sidebar {
+            background: #222 !important;
+            color: #f5f5f5 !important;
+        }
+        .vertical-nav-menu li a,
+        .vertical-nav-menu li.app-sidebar__heading {
+            color: #f5f5f5 !important;
+        }
+        .vertical-nav-menu li a.active,
+        .vertical-nav-menu li a:hover {
+            background: #333 !important;
+            color: #fff !important;
+        }
     </style>
 </head>
 <body>

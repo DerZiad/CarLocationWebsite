@@ -7,12 +7,10 @@
 <div class="app-page-title">
     <div class="page-title-wrapper">
         <div class="page-title-heading">
-            <div class="page-title-icon">
-                <i class="pe-7s-car icon-gradient bg-mean-fruit" style="color: red;"></i>
-            </div>
+            <img class="page-title-icon" src="<c:url value='/images/logo.png'/>" alt="Logo">
             <div>
                 MyCar Dashboard
-                <div class="page-title-subheading">In this dashboard, it will be shown statistics and everything concerning the car rental in the website</div>
+                <div class="page-title-subheading">This dashboard displays statistics and all relevant information about car rentals on the website.</div>
             </div>
         </div>
     </div>
@@ -22,8 +20,8 @@
         <div class="card mb-3 widget-content bg-midnight-bloom">
             <div class="widget-content-wrapper text-white">
                 <div class="widget-content-left">
-                    <div class="widget-heading">Number of Trips</div>
-                    <div class="widget-subheading">Number of trips not completed</div>
+                    <div class="widget-heading">Total Cars</div>
+                    <div class="widget-subheading">The total number of cars available in stock</div>
                 </div>
                 <div class="widget-content-right">
                     <div class="widget-numbers text-white">
@@ -37,8 +35,8 @@
         <div class="card mb-3 widget-content bg-arielle-smile">
             <div class="widget-content-wrapper text-white">
                 <div class="widget-content-left">
-                    <div class="widget-heading">Number of Teams</div>
-                    <div class="widget-subheading">Number of available teams</div>
+                    <div class="widget-heading">Total Clients</div>
+                    <div class="widget-subheading">Number of registered clients on the website</div>
                 </div>
                 <div class="widget-content-right">
                     <div class="widget-numbers text-white">
@@ -52,7 +50,7 @@
         <div class="card mb-3 widget-content bg-grow-early">
             <div class="widget-content-wrapper text-white">
                 <div class="widget-content-left">
-                    <div class="widget-heading">Number of Reservations</div>
+                    <div class="widget-heading">Total Reservations</div>
                     <div class="widget-subheading">Number of paid reservations</div>
                 </div>
                 <div class="widget-content-right">
@@ -67,7 +65,7 @@
         <div class="card mb-3 widget-content bg-premium-dark">
             <div class="widget-content-wrapper text-white">
                 <div class="widget-content-left">
-                    <div class="widget-heading">Number of Hotels</div>
+                    <div class="widget-heading">Total Hotels</div>
                     <div class="widget-subheading">Number of recognized hotels</div>
                 </div>
                 <div class="widget-content-right">
@@ -85,7 +83,7 @@
             <div class="card-header-tab card-header-tab-animation card-header">
                 <div class="card-header-title">
                     <i class="header-icon lnr-apartment icon-gradient bg-love-kiss">
-                    </i> Visualization of Most Visited Countries
+                    </i> Most Visited Countries Overview
                 </div>
             </div>
             <div class="card-body">
@@ -113,7 +111,7 @@
                 <div class="widget-content-wrapper">
                     <div class="widget-content-left">
                         <div class="widget-heading">Total Orders</div>
-                        <div class="widget-subheading">Last year expenses</div>
+                        <div class="widget-subheading">Expenses from last year</div>
                     </div>
                     <div class="widget-content-right">
                         <div class="widget-numbers text-success">1896</div>
@@ -143,7 +141,7 @@
                 <div class="widget-content-wrapper">
                     <div class="widget-content-left">
                         <div class="widget-heading">Followers</div>
-                        <div class="widget-subheading">People Interested</div>
+                        <div class="widget-subheading">Interested users</div>
                     </div>
                     <div class="widget-content-right">
                         <div class="widget-numbers text-danger">45.9%</div>
@@ -158,7 +156,7 @@
                 <div class="widget-content-wrapper">
                     <div class="widget-content-left">
                         <div class="widget-heading">Income</div>
-                        <div class="widget-subheading">Expected totals</div>
+                        <div class="widget-subheading">Expected total</div>
                     </div>
                     <div class="widget-content-right">
                         <div class="widget-numbers text-focus">$147</div>
@@ -190,7 +188,7 @@
                     class="align-middle mb-0 table table-borderless table-striped table-hover">
                     <thead>
                         <tr>
-                            <th class="text-center">Picture</th>
+                            <th class="text-center">Photo</th>
                             <th class="text-center">Name</th>
                             <th class="text-center">Email</th>
                         </tr>
