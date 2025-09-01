@@ -18,7 +18,7 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript" src="/delibdesign/assets/scripts/main.js"></script>
+	<script type="text/javascript" src="/dashboard-design/assets/scripts/main.js"></script>
 	<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <link rel="stylesheet"
     	href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">

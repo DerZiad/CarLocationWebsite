@@ -41,7 +41,7 @@
 </div>
 
 <!-- Scripts -->
-<script src="/delibdesign/js/Theme/script.js"></script>
-<script src="/delibdesign/js/hotel/template.js"></script>
+<script src="/dashboard-design/js/Theme/script.js"></script>
+<script src="/dashboard-design/js/hotel/template.js"></script>
 
 <jsp:include page="dashboard_footer.jsp" />
