@@ -26,10 +26,10 @@
                     <c:forEach var="reservation" items="${reservations}">
                         <tr>
                             <td style="color: black">${reservation.user.username}</td>
-                            <td style="color: black">${reservation.voiture.categorie.toString()}</td>
-                            <td style="color: black">${reservation.voiture.marque.toString()}</td>
-                            <td style="color: black">${reservation.voiture.annee}</td>
-                            <td style="color: black">${reservation.voiture.prix}</td>
+                            <td style="color: black">${reservation.car.category.displayName}</td>
+                            <td style="color: black">${reservation.car.brand.displayName}</td>
+                            <td style="color: black">${reservation.car.year}</td>
+                            <td style="color: black">${reservation.car.price}</td>
                             <td style="color: black">${reservation.delai} days</td>
                         </tr>
                     </c:forEach>

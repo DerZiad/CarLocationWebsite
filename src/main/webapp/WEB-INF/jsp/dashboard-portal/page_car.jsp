@@ -91,7 +91,13 @@
                         </div>
                     </div>
                     <div class="text-center">
-                        <button class="btn btn-primary px-5" type="submit">Add Car</button>
+                        <button
+                            class="btn btn-primary px-5"
+                            type="submit"
+                            style="background-color: #222 !important; color: #fff !important; font-weight: bold !important; border: none;"
+                        >
+                            Add Car
+                        </button>
                     </div>
                 </form>
             </div>
