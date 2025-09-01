@@ -25,5 +25,4 @@
         </table>
     </div>
 </div>
-
 <jsp:include page="dashboard_footer.jsp" />

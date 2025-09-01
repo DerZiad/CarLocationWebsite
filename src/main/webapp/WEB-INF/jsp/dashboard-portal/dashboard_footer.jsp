@@ -15,6 +15,8 @@
 			</div>
 		</div>
 	</div>
+	<script src="<c:url value="/dashboard-design/js/Theme/script.js"/>"></script>
+	<script src="<c:url value="/dashboard-design/js/hotel/template.js"/>"></script>
 	<script type="text/javascript" src="<c:url value="/dashboard-design/assets/scripts/main.js"/>"></script>
 	<script src="http://maps.google.com/maps/api/js?sensor=true"></script>
     <link rel="stylesheet"

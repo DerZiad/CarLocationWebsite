@@ -19,11 +19,9 @@
     <meta name="description"
           content="This is an example dashboard created using built-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
-    <link href="/dashboard-design/css/main.css" rel="stylesheet">
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script type="text/javascript"
-            src="https://www.gstatic.com/charts/loader.js"></script>
+    <link href="<c:url value="/dashboard-design/css/main.css"/>" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {
             'packages': ['bar']
@@ -87,7 +85,7 @@
     <div class="app-header header-shadow">
         <div class="app-header__logo">
             <div>
-                <img src="<c:url value="/images/logo.svg"/>" style="height:40px;">
+                <img src="<c:url value="/images/logo.svg"/>" style="height:40px;" alt="logo">
             </div>
             <div class="header__pane ml-auto">
                 <div>
@@ -125,21 +123,15 @@
                     <div class="widget-content p-0">
                         <div class="widget-content-wrapper">
                             <div class="widget-content-left">
+                                <div class="widget-heading"><c:out value="${user.username}"/></div>
+                            </div>
+                            <div class="widget-content-right  ml-3 header-user-info">
                                 <div class="btn-group">
-                                    <a data-toggle="dropdown" aria-haspopup="true"
-                                       aria-expanded="false" class="p-0 btn"> <img width="42"
-                                                                                   class="rounded-circle"
-                                                                                   src="assets/images/avatars/default-profile.jpg" alt=""> <i
-                                            class="fa fa-angle-down ml-2 opacity-8"></i>
-                                    </a>
-                                    <div tabindex="-1" role="menu" aria-hidden="true"
-                                         class="dropdown-menu dropdown-menu-right">
-                                        <a href="/logout" tabindex="0" class="dropdown-item">Logout</a>
+                                    <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn"><i class="fa fa-angle-down ml-2 opacity-8"></i></a>
+                                    <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
+                                        <a href="<c:url value="/logout"/>" tabindex="0" class="dropdown-item">Logout</a>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="widget-content-left  ml-3 header-user-info">
-                                <div class="widget-heading"><c:out value="${user.username}"/></div>
                             </div>
                         </div>
                     </div>
@@ -164,7 +156,6 @@
                     </ul>
                 </div>
             </div>
-            <!-- Add a single sidebar toggle button outside the sidebar for consistent behavior -->
             <button type="button"
                     class="hamburger close-sidebar-btn hamburger--elastic"
                     data-class="closed-sidebar"
