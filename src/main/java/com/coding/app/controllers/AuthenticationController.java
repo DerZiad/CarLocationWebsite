@@ -22,8 +22,7 @@ public class AuthenticationController {
     private static final String PATH_LOGIN = "login";
     private static final String PATH_SIGNUP = "signup";
     private static final String PATH_VERIFICATION = "auth/verification";
-    private static final String REDIRECT_HOME = "redirect:/";
-    private static final String ATTR_ERROR = "errorMessage";
+    private static final String ATTR_ERROR = "error";
     private static final String ATTR_ERRORS = "errors";
 
     private final AuthenticationService authenticationService;
@@ -32,7 +31,7 @@ public class AuthenticationController {
     public ModelAndView loginForm(HttpServletRequest request) {
         final ModelAndView model = new ModelAndView(PATH_LOGIN);
         model.addObject(ATTR_LOGIN, true);
-        String err = request.getParameter(ATTR_ERROR);
+        final String err = request.getParameter(ATTR_ERROR);
         if (err != null)
             model.addObject(ATTR_ERROR, "Your credentials are incorrect.");
         return model;

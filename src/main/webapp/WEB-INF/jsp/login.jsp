@@ -7,8 +7,8 @@
 <head>
     <meta charset="utf-8" />
     <title>Login</title>
-    <link href="/home/css/styles.css" rel="stylesheet" />
-    <link href="/home/css/additional.css" rel="stylesheet" />
+    <link href="<c:url value="/home/css/styles.css"/>" rel="stylesheet" />
+    <link href="<c:url value="/home/css/additional.css"/>" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" crossorigin="anonymous"></script>
