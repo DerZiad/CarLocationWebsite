@@ -39,29 +39,29 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class ClientViewAttributes {
 
-    public final static String ADMIN_CLIENT_URI = "/admin/client";
-    public final static String JSP_ADMIN_CLIENT = "dashboard-portal/page_client";
-    public final static String MODEL_AND_VIEW_CLIENTS = "clients";
-    public final static String REDIRECT_ADMIN_CLIENT = "redirect:" + ADMIN_CLIENT_URI;
+    public static final String ADMIN_CLIENT_URI = "/admin/client";
+    public static final String JSP_ADMIN_CLIENT = "dashboard-portal/page_client";
+    public static final String MODEL_AND_VIEW_CLIENTS = "clients";
+    public static final String REDIRECT_ADMIN_CLIENT = "redirect:" + ADMIN_CLIENT_URI;
 }
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class ManagerViewAttributes {
 
-    public final static String ADMIN_MANAGER_URI = "/admin/manager";
-    public final static String JSP_ADMIN_MANAGER = "dashboard-portal/page_manager";
-    public final static String MODEL_AND_VIEW_MANAGERS_ATTRIBUTE = "managers";
-    public final static String MODEL_AND_VIEW_MANAGER_ATTRIBUTE = "manager";
-    public final static String REDIRECT_MANAGER = "redirect:" + ADMIN_MANAGER_URI;
+    public static final String ADMIN_MANAGER_URI = "/admin/manager";
+    public static final String JSP_ADMIN_MANAGER = "dashboard-portal/page_manager";
+    public static final String MODEL_AND_VIEW_MANAGERS_ATTRIBUTE = "managers";
+    public static final String MODEL_AND_VIEW_MANAGER_ATTRIBUTE = "manager";
+    public static final String REDIRECT_MANAGER = "redirect:" + ADMIN_MANAGER_URI;
 }
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class HistoryViewAttributes {
 
-    public final static String ADMIN_HISTORY_URI = "/admin/history";
-    public final static String JSP_ADMIN_HISTORY = "dashboard-portal/page_history";
-    public final static String MODEL_AND_VIEW_HISTORIES_ATTRIBUTE = "historyData";
-    public final static String REDIRECT_HISTORY = "redirect:" + ADMIN_MANAGER_URI;
+    public static final String ADMIN_HISTORY_URI = "/admin/history";
+    public static final String JSP_ADMIN_HISTORY = "dashboard-portal/page_history";
+    public static final String MODEL_AND_VIEW_HISTORIES_ATTRIBUTE = "historyData";
+    public static final String REDIRECT_HISTORY = "redirect:" + ADMIN_MANAGER_URI;
 }
 
 @Controller
@@ -75,6 +75,7 @@ public class AdminController {
     public ModelAndView getHistoryPage() {
         final ModelAndView model = new ModelAndView(JSP_ADMIN_HISTORY);
         configureCurrentUser(model);
+        DashboardUtils.activateMenu(DashboardUtils.NavbarMenu.HISTORY, model);
         model.addObject(MODEL_AND_VIEW_HISTORIES_ATTRIBUTE, historyService.getAllHistories());
         return model;
     }
@@ -89,20 +90,22 @@ public class AdminController {
     public ModelAndView getManagersPage() {
         final ModelAndView model = new ModelAndView(JSP_ADMIN_MANAGER);
         configureCurrentUser(model);
+        DashboardUtils.activateMenu(DashboardUtils.NavbarMenu.MANAGERS, model);
         final List<User> users = userService.findUsersByFilter(user -> user.getRoles().contains(ServerRole.MANAGER.getRole()));
         model.addObject(MODEL_AND_VIEW_MANAGERS_ATTRIBUTE, users);
         return model;
     }
 
     @PostMapping(ADMIN_MANAGER_URI)
-    public ModelAndView addManager(@RequestPayload User user) {
+    public ModelAndView addManager(@RequestPayload final User user) {
         ModelAndView model;
         try {
-            user = userService.createManager(user);
+            userService.createManager(user);
             model = new ModelAndView(REDIRECT_MANAGER);
-        } catch (InvalidObjectException e) {
+        } catch (final InvalidObjectException e) {
             model = new ModelAndView(JSP_ADMIN_MANAGER);
             configureCurrentUser(model);
+            DashboardUtils.activateMenu(DashboardUtils.NavbarMenu.MANAGERS, model);
             final List<User> users = userService.findUsersByFilter(u -> u.getRoles().contains(ServerRole.MANAGER.getRole()));
             model.addObject(MODEL_AND_VIEW_MANAGERS_ATTRIBUTE, users);
             model.addObject(MODEL_AND_VIEW_MANAGER_ATTRIBUTE, user);
@@ -115,26 +118,27 @@ public class AdminController {
     public ModelAndView getClientsPage() {
         final ModelAndView model = new ModelAndView(JSP_ADMIN_CLIENT);
         configureCurrentUser(model);
+        DashboardUtils.activateMenu(DashboardUtils.NavbarMenu.CLIENTS, model);
         final List<User> users = userService.findUsersByFilter(user -> user.getRoles().contains(ServerRole.CLIENT.getRole()));
         model.addObject(MODEL_AND_VIEW_CLIENTS, users);
         return model;
     }
 
     @GetMapping("/admin/ban")
-    public ModelAndView banUser(@RequestParam("userType") String userType, @RequestParam("username") String username) throws NotFoundException {
+    public ModelAndView banUser(@RequestParam("userType") final String userType, @RequestParam("username") final String username) throws NotFoundException {
         userService.banUser(username);
-        if(userType.equals("manager")) {
+        if("manager".equals(userType)) {
             return new ModelAndView(REDIRECT_MANAGER);
         } else {
             return new ModelAndView(REDIRECT_ADMIN_CLIENT);
         }
     }
 
-    private void configureCurrentUser(ModelAndView model) {
+    private void configureCurrentUser(final ModelAndView model) {
         try {
             final User user = userService.findByUsername(SecurityContextHolder.getContext().getAuthentication().getName());
             model.addObject(CURRENT_USER, user);
-        } catch (NotFoundException e) {
+        } catch (final NotFoundException e) {
             model.setViewName("redirect:/");
         }
     }

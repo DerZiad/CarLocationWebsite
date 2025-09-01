@@ -13,7 +13,7 @@ import static com.coding.app.controllers.DashboardViewAttributes.CURRENT_USER;
 import static com.coding.app.controllers.DashboardViewAttributes.JSP_SHARED_DASHBOARD;
 import static com.coding.app.controllers.DashboardViewAttributes.SHARED_URI;
 import static com.coding.app.controllers.ReservationViewAttributes.JSP_ADMIN_RESERVATION;
-import static com.coding.app.controllers.ReservationViewAttributes.MODEL_AND_VIEW_RESERVATIONS_ATTRIBUTE;
+import static com.coding.app.controllers.ReservationViewAttributes.*;
 import static com.coding.app.controllers.ReservationViewAttributes.SHARED_RESERVATION_URI;
 
 import java.time.Year;
@@ -46,16 +46,17 @@ import lombok.RequiredArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class DashboardViewAttributes {
 
-    public final static String SHARED_URI = "/shared";
-    public final static String JSP_SHARED_DASHBOARD = "dashboard-portal/index";
-    public final static String CURRENT_USER = "user";
+    public static final String SHARED_URI = "/shared";
+    public static final String JSP_SHARED_DASHBOARD = "dashboard-portal/index";
+    public static final String CURRENT_USER = "user";
 }
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 class ReservationViewAttributes {
 
-    public final static String SHARED_RESERVATION_URI = "/shared/reservation";
-    public final static String JSP_ADMIN_RESERVATION = "dashboard-portal/page_reservation";
+    public static final String SHARED_RESERVATION_URI = "/shared/reservation";
+    public static final String JSP_ADMIN_RESERVATION = "dashboard-portal/page_reservation";
+    public static final String REDIRECT_RESERVATION = "redirect:/manager/reservation";
     public final static String MODEL_AND_VIEW_RESERVATIONS_ATTRIBUTE = "reservations";
 }
 
@@ -81,6 +82,18 @@ public final class DashboardController {
     private final UserService userService;
     private final ReservationService reservationService;
     private final CarService carService;
+
+    @GetMapping(SHARED_RESERVATION_URI + "/accept/{cardId}/{username}")
+    public ModelAndView acceptReservation(@PathVariable("cardId") final Long cardId, @PathVariable("username") final String username) throws NotFoundException {
+        reservationService.acceptReservation(cardId, username);
+        return new ModelAndView(REDIRECT_RESERVATION);
+    }
+
+    @GetMapping(SHARED_RESERVATION_URI + "/delete/{cardId}/{username}")
+    public ModelAndView deleteReservation(@PathVariable("cardId") final Long cardId, @PathVariable("username") final String username) throws NotFoundException {
+        reservationService.deleteReservation(cardId, username);
+        return new ModelAndView(REDIRECT_RESERVATION);
+    }
 
     @GetMapping(CAR_URI)
     public ModelAndView showCarPage() {
@@ -134,12 +147,15 @@ public final class DashboardController {
     public ModelAndView getDashboard() {
         final ModelAndView modelAndView = new ModelAndView(JSP_SHARED_DASHBOARD);
         configureCurrentUser(modelAndView);
+        DashboardUtils.activateMenu(DashboardUtils.NavbarMenu.DASHBOARD, modelAndView);
         return modelAndView;
     }
 
     @GetMapping(SHARED_RESERVATION_URI)
     public ModelAndView getReservationPage() {
         final ModelAndView model = new ModelAndView(JSP_ADMIN_RESERVATION);
+        configureCurrentUser(model);
+        DashboardUtils.activateMenu(DashboardUtils.NavbarMenu.RESERVATIONS, model);
         final List<Reservation> reservations = reservationService.getReservationsByFilter(Reservation::isConfirmed);
         model.addObject(MODEL_AND_VIEW_RESERVATIONS_ATTRIBUTE, reservations);
         return model;
@@ -150,6 +166,7 @@ public final class DashboardController {
     private ModelAndView getPageCar(){
         final ModelAndView model = new ModelAndView(PAGE_CAR);
         configureCurrentUser(model);
+        DashboardUtils.activateMenu(DashboardUtils.NavbarMenu.CAR, model);
         model.addObject(ATTR_CATEGORIES, Category.values());
         model.addObject(ATTR_BRANDS, Brand.values());
         model.addObject(ATTR_YEARS, getYearList());

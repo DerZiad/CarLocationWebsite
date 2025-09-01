@@ -15,6 +15,7 @@ import com.coding.app.repository.CarRepository;
 import com.coding.app.repository.ReservationRepository;
 import com.coding.app.repository.UserRepository;
 import com.coding.app.services.EmailService;
+import com.coding.app.services.ReservationService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -23,84 +24,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ReservationManagerController {
 
-	private final CarRepository carRepository;
+	private final ReservationService reservationService;
 
-	private final UserRepository userRepository;
-
-	private final ReservationRepository reservationRepository;
-
-	private final EmailService emailService;
-
-	private static final String PAGE_RESERVATION = "manager/reservation";
-	private static final String ATTRIBUT_RESERVATIONS = "reservations";
 	private static final String REDIRECT_RESERVATION = "redirect:/manager/reservation";
 
-	@GetMapping("/accepter/{idVoiture}/{idUser}")
-	public ModelAndView acceptReservation(@PathVariable("idVoiture") Long idVoiture,
-			@PathVariable("idUser") String username) throws NotFoundException {
-
-		Car car = carRepository.findById(idVoiture)
-				.orElseThrow(() -> new NotFoundException("Voiture not found"));
-		User user = userRepository.findById(username).orElseThrow(() -> new NotFoundException("User not found"));
-
-		Reservation reservation = new Reservation();
-		reservation.setConfirmed(true);
-		reservation.setUser(user);
-		reservation.setCar(car);
-		reservation.setId(new KeyReservation(user.getUsername(), car.getId()));
-		reservationRepository.save(reservation);
-
-		/*Thread emailSend = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				HtmlMessage htmlMessage = new EmailConfirmation(
-						user.getEmail(), "Ta reservation de " + voiture.getMarque().toString() + " "
-								+ voiture.getCategorie().toString() + " a été accepter",
-						"Reservation accepté", user.getUsername());
-				try {
-					emailService.sendEmail(htmlMessage);
-				} catch (MessagingException e) {
-					e.printStackTrace();
-				}
-
-			}
-		});
-		emailSend.start();*/
+	@GetMapping("/accept/{cardId}/{username}")
+	public ModelAndView acceptReservation(@PathVariable("cardId") final Long cardId, @PathVariable("username") final String username) throws NotFoundException {
+		reservationService.acceptReservation(cardId, username);
 		return new ModelAndView(REDIRECT_RESERVATION);
 	}
 
-	@GetMapping("/delete/{idVoiture}/{idUser}")
-	public ModelAndView deleteReservation(@PathVariable("idVoiture") Long idVoiture,
-			@PathVariable("idUser") String idUser) throws NotFoundException {
-
-		Car car = carRepository.findById(idVoiture)
-				.orElseThrow(() -> new NotFoundException("Voiture not found"));
-		User user = userRepository.findById(idUser).orElseThrow(() -> new NotFoundException("User not found"));
-
-		Reservation reservation = new Reservation();
-		reservation.setConfirmed(true);
-		reservation.setUser(user);
-		reservation.setCar(car);
-		reservation.setId(new KeyReservation(user.getUsername(), car.getId()));
-		reservationRepository.delete(reservation);
-		/*Thread emailSend = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				HtmlMessage htmlMessage = new EmailConfirmation(
-						user.getEmail(), "Ta reservation de " + voiture.getMarque().toString() + " "
-								+ voiture.getCategorie().toString() + " a été refusé",
-						"Reservation refusé", user.getUsername());
-				try {
-					emailService.sendEmail(htmlMessage);
-				} catch (MessagingException e) {
-					e.printStackTrace();
-				}
-
-			}
-		});
-		emailSend.start();*/
+	@GetMapping("/delete/{cardId}/{username}")
+	public ModelAndView deleteReservation(@PathVariable("cardId") final Long cardId, @PathVariable("username") final String username) throws NotFoundException {
+		reservationService.deleteReservation(cardId, username);
 		return new ModelAndView(REDIRECT_RESERVATION);
 	}
 }
