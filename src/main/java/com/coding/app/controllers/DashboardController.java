@@ -23,8 +23,10 @@ import java.util.List;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 
@@ -101,7 +103,13 @@ public final class DashboardController {
     }
 
     @PostMapping(CAR_URI)
-    public ModelAndView createCar(@RequestPayload final Car car) {
+    public ModelAndView createCar(
+        @ModelAttribute Car car,
+        @RequestParam(value = "base64Image", required = false) String base64Image
+    ) {
+        if (base64Image != null && !base64Image.isEmpty()) {
+            car.setImage(java.util.Base64.getDecoder().decode(base64Image));
+        }
         ModelAndView model;
         try {
             carService.addCar(car);
