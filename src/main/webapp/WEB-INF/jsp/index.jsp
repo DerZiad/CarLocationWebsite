@@ -1,20 +1,26 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
 <meta name="description" content="" />
-<meta name="author" content="" />
+<meta name="author" content="DerZiad" />
 <title>Agency - Start Bootstrap Theme</title>
 <link rel="icon" type="image/x-icon" href="<c:url value="/images/fav.ico"/>" />
 <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css" />
 <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700" rel="stylesheet" type="text/css" />
 <link href="<c:url value="/home/css/styles.css"/>" rel="stylesheet" />
+<style>
+    .portfolio-item img.img-fluid {
+        width: 100%;
+        height: 220px;
+        object-fit: cover;
+    }
+</style>
 </head>
 <body id="page-top">
     <c:if test="${username ne null }">
@@ -40,21 +46,24 @@
 				<h3 class="section-subheading text-muted">Browse our current stock and choose the car that fits your needs.</h3>
 			</div>
 			<div class="row">
-				<c:forEach items="${voitures}" var="car">
+				<c:forEach items="${cars}" var="car">
 					<div class="col-lg-4 col-sm-6 mb-4">
-						<!-- Portfolio item 1-->
 						<div class="portfolio-item">
 							<a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
 								<div class="portfolio-hover">
 									<div class="portfolio-hover-content">
-										<i class="fas fa-plus fa-3x" onclick="setUpVoiture(${car.id})"></i>
+										<i class="fas fa-plus fa-3x" onclick="showReservationModal(${car.id})"></i>
 									</div>
 								</div>
 								<img class="img-fluid" src="data:image/jpeg;base64,${car.base64Image}" alt="..." />
 							</a>
 							<div class="portfolio-caption">
-								<div class="portfolio-caption-heading"><c:out value="${car.brand.displayName}"/> - <c:out value="${car.category.displayName}"/> </div>
-								<div class="portfolio-caption-subheading text-muted">Rental Price per Day : ${car.price}</div>
+								<div class="portfolio-caption-heading">
+									<c:out value="${car.brand.displayName}"/> - <c:out value="${car.category.displayName}"/>
+								</div>
+								<div class="portfolio-caption-subheading text-muted">
+									Rental Price per Day : ${car.price} €
+								</div>
 							</div>
 						</div>
 					</div>
@@ -73,7 +82,7 @@
 				<li>
 					<div class="timeline-image">
 						<img class="rounded-circle img-fluid"
-							src="/home/assets/img/about/1.jpg" alt="..." />
+							src="<c:url value="/home/assets/img/about/1.jpg"/>" alt="..." />
 					</div>
 					<div class="timeline-panel">
 						<div class="timeline-heading">
@@ -88,7 +97,7 @@
 				<li class="timeline-inverted">
 					<div class="timeline-image">
 						<img class="rounded-circle img-fluid"
-							src="/home/assets/img/about/2.jpg" alt="..." />
+							src="<c:url value="/home/assets/img/about/2.jpg"/>" alt="..." />
 					</div>
 					<div class="timeline-panel">
 						<div class="timeline-heading">
@@ -103,7 +112,7 @@
 				<li>
 					<div class="timeline-image">
 						<img class="rounded-circle img-fluid"
-							src="/home/assets/img/about/3.jpg" alt="..." />
+							src="<c:url value="/home/assets/img/about/3.jpg"/>" alt="..." />
 					</div>
 					<div class="timeline-panel">
 						<div class="timeline-heading">
@@ -118,7 +127,7 @@
 				<li class="timeline-inverted">
 					<div class="timeline-image">
 						<img class="rounded-circle img-fluid"
-							src="/home/assets/img/about/4.jpg" alt="..." />
+							src="<c:url value="/home/assets/img/about/4.jpg"/>" alt="..." />
 					</div>
 					<div class="timeline-panel">
 						<div class="timeline-heading">
@@ -165,36 +174,61 @@
 	<!-- Portfolio item 1 modal popup-->
 	<div class="portfolio-modal modal fade" id="portfolioModal1"
 		tabindex="-1" role="dialog" aria-hidden="true">
-		<input id="idVoiture" type="hidden" name="idVoiture" value="" />
-		<div class="modal-dialog">
+		<input id="carId" type="hidden" name="carId" value="" />
+		<div class="modal-dialog modal-md modal-dialog-centered">
 			<div class="modal-content">
-				<div class="close-modal" data-bs-dismiss="modal">
-					<img src="/home/assets/img/close-icon.svg" alt="Close modal" />
+				<div class="close-modal position-absolute end-0 mt-2 me-2" data-bs-dismiss="modal" style="z-index:2;">
+					<img src="<c:url value="/home/assets/img/close-icon.svg"/>" alt="Close modal" />
 				</div>
 				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-8">
-							<div class="modal-body">
-								<!-- Project details-->
-								<h2 id="marqueModal" class="text-uppercase"></h2>
-								<p id="categorieModal" class="item-intro text-muted"></p>
-								<img id="imageModal" class="img-fluid d-block mx-auto"
-									src="/home/assets/img/portfolio/1.jpg" alt="Car Image" />
-
-								<ul class="list-inline">
-									<li><strong>Year:</strong> <span id="annee"></span></li>
-								</ul>
-								<input type="number" class="form-control" id="delai"
-									name="delai" placeholder="Rental Duration (days)" min="1" max="30" value="" />
-								<p id="errorRes" style="color:red"></p>
-								<p id="confirmation" style="color:green"></p>
-								<button id="reserver"
-									class="btn btn-primary btn-xl text-uppercase">
-									Reserve</button>
-								<button class="btn btn-primary btn-xl text-uppercase"
-									data-bs-dismiss="modal" type="button">
-									<i class="fas fa-times me-1"></i> Close
-								</button>
+					<div class="row g-3 justify-content-center">
+						<div class="col-12 col-md-5 d-flex align-items-stretch">
+							<div class="card shadow-sm p-3 mb-2 w-100" style="max-width:520px;">
+								<h5 class="card-title mb-3">Reservation Dates</h5>
+								<div class="mb-2">
+									<label for="startDate" class="form-label">Start Date</label>
+									<input type="date" class="form-control" id="startDate" name="startDate" placeholder="DD-MM-YYYY" />
+								</div>
+								<div class="mb-2">
+									<label for="endDate" class="form-label">End Date</label>
+									<input type="date" class="form-control" id="endDate" name="endDate" placeholder="DD-MM-YYYY" />
+								</div>
+								<p id="errorReservation" style="color:red; font-size:0.95rem;"></p>
+								<p id="confirmationReservation" style="color:green; font-size:0.95rem;"></p>
+								<div class="d-flex justify-content-center mt-3">
+									<button id="reserveButton"
+										class="btn btn-primary btn-sm text-uppercase px-4">
+										Reserve
+									</button>
+									<button class="btn btn-secondary btn-sm text-uppercase px-4 ms-2"
+										data-bs-dismiss="modal" type="button">
+										<i class="fas fa-times me-1"></i> Close
+									</button>
+								</div>
+							</div>
+						</div>
+						<div class="col-12 col-md-7 d-flex align-items-stretch">
+							<div class="card shadow-sm p-3 mb-2 w-100" style="max-width:520px;">
+								<img id="carImageModal" class="img-fluid d-block mx-auto mb-3"
+									style="max-height:180px; object-fit:cover;" src="<c:url value="/home/assets/img/portfolio/1.jpg"/>" alt="Car Image" />
+								<div class="border rounded px-5 py-4 mb-2 mx-auto" style="background:#f8f9fa; font-size:12px;">
+									<div class="row mb-4">
+										<div class="col-5 fw-bold">Brand:</div>
+										<div class="col-7" id="brandModal"></div>
+									</div>
+									<div class="row mb-4">
+										<div class="col-5 fw-bold">Category:</div>
+										<div class="col-7" id="categoryModal"></div>
+									</div>
+									<div class="row mb-4">
+										<div class="col-5 fw-bold">Year:</div>
+										<div class="col-7" id="yearModal"></div>
+									</div>
+									<div class="row mb-2">
+										<div class="col-5 fw-bold">Rental Price per Day:</div>
+										<div class="col-7"><span id="priceModal"></span> €</div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

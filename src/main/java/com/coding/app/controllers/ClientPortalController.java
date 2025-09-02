@@ -28,7 +28,7 @@ import lombok.RequiredArgsConstructor;
 public class ClientPortalController {
 	
 	private final static String PATH_CLIENT = "index";
-	private final static String ATTRIBUT_VOITURES = "voitures";
+	private final static String ATTRIBUT_VOITURES = "cars";
 
 	private final UserService userService;
 

@@ -20,7 +20,7 @@ import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.coding.app.dto.MyCarRequest;
+import com.coding.app.dto.CarRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -106,7 +106,7 @@ public final class DashboardController {
 
     @PostMapping(CAR_URI)
     public ModelAndView createCar(
-        @ModelAttribute MyCarRequest car,
+        @ModelAttribute CarRequest car,
         @RequestParam(value = "partFile", required = false) MultipartFile imageFile
     ) {
 

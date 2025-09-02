@@ -1,6 +1,7 @@
 package com.coding.app.models;
 
 import java.io.Serializable;
+import java.sql.Date;
 
 import com.coding.app.models.key.KeyReservation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -31,7 +32,8 @@ public class Reservation implements Serializable{
 	
 	private long dateCreation = System.currentTimeMillis();
 	
-	private long delai;
+	private Date startDay;
+    private Date endDay;
 			
 	/**
 	 * Relations
@@ -48,10 +50,6 @@ public class Reservation implements Serializable{
 	private Car car;
 			
 	public boolean isDead() {
-		long dateNow = System.currentTimeMillis();
-		if(dateNow >= (dateCreation + delai))
-			return true;
-		else
-			return false;
+		return false;
 	}
 }

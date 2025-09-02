@@ -3,7 +3,7 @@ package com.coding.app.services;
 import java.util.HashMap;
 import java.util.List;
 
-import com.coding.app.dto.MyCarRequest;
+import com.coding.app.dto.CarRequest;
 import org.springframework.stereotype.Service;
 
 import com.coding.app.exceptions.InvalidObjectException;
@@ -21,7 +21,7 @@ public class CarService {
     private final CarRepository carRepository;
     private final HistoryService historyService;
 
-    public void addCar(final MyCarRequest carRequest, final MultipartFile imageFile) throws InvalidObjectException {
+    public void addCar(final CarRequest carRequest, final MultipartFile imageFile) throws InvalidObjectException {
         final Car car = new Car();
         car.setBrand(carRequest.getBrand());
         car.setCategory(carRequest.getCategory());
