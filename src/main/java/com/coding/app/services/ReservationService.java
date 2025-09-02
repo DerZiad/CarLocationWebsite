@@ -6,6 +6,7 @@ import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import com.coding.app.dto.ReservationRequest;
 import org.springframework.stereotype.Service;
 
 import com.coding.app.exceptions.NotFoundException;
@@ -30,6 +31,18 @@ public class ReservationService {
 	private final UserService userService;
 
 	private final CarService carService;
+
+    public Reservation createReservation(final ReservationRequest reservation) throws NotFoundException {
+        final User user = userService.findByUsername(reservation.getUsername());
+        final Car car = carService.getCar(reservation.getCarId());
+
+    }
+
+    public boolean isReserved(final Long carId, String startDate, String endDate) {
+        final List<Reservation> reservations = reservationRepository.findAll().stream()
+            .filter(r -> r.getCar().getId().equals(carId))
+            .collect(Collectors.toList());
+    }
 
 	public List<Reservation> getAllReservations() {
 		return reservationRepository.findAll();

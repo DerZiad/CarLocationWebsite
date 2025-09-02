@@ -49,10 +49,10 @@
 				<c:forEach items="${cars}" var="car">
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item">
-							<a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1">
+							<a class="portfolio-link" data-bs-toggle="modal" href="#portfolioModal1" onclick="showReservationModal(${car.id})">
 								<div class="portfolio-hover">
 									<div class="portfolio-hover-content">
-										<i class="fas fa-plus fa-3x" onclick="showReservationModal(${car.id})"></i>
+										<i class="fas fa-plus fa-3x"></i>
 									</div>
 								</div>
 								<img class="img-fluid" src="data:image/jpeg;base64,${car.base64Image}" alt="..." />
